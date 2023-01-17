@@ -20,12 +20,14 @@ complete my workshops and assignments.
 #include <cstring>
 #include <string>
 #include "foodorder.h"
+using namespace std;
 
 double g_taxrate = 0.0;
 double g_dailydiscount = 0.0;
 
 namespace sdds {
-
+	static int counter = 0;
+	//set all values
 	void FoodOrder::set(const char* customerName, const char* foodDescription, const double price, const char dailySpecial) {
 		strcpy(m_customerName, customerName);
 
@@ -33,9 +35,11 @@ namespace sdds {
 		strcpy(m_foodDescription, foodDescription);
 
 		m_foodPrice = price;
+
 		m_dailySpecial = dailySpecial == 'Y' ? true : false;
 	}
 
+	//set safety empty state
 	void FoodOrder::setEmpty() {
 		m_foodDescription = nullptr;
 		m_customerName[0] = '\0';
@@ -43,9 +47,10 @@ namespace sdds {
 		m_dailySpecial = false;
 	}
 
-	bool FoodOrder::isEmpty() {
+	bool FoodOrder::isEmpty(){
 		return m_customerName[0] == '\0';
 	}
+
 	FoodOrder::FoodOrder() {
 		setEmpty();
 	}
@@ -58,66 +63,52 @@ namespace sdds {
 
 	//read(): a modifier that receives an istream reference.
 	void FoodOrder::read(std::istream& istr) {
-		char tempName[10];
-		istr.get(tempName, 10, ',');
-		istr.ignore();
-
-		std::string Desc;
-		getline(istr, Desc, ',');
-
-		double foodPrice = -1;
-		istr >> foodPrice;
-		istr.ignore();
-
-		char specialStatus;
-		istr >> specialStatus;
-
-		if (!istr.fail()) {
-			this->set(tempName, Desc.c_str(), foodPrice, specialStatus);
-		}
+		setEmpty();
+			char tempName[10];
+			//read customer name up to comma
+			istr.get(tempName, 10, ',');
+			istr.ignore();
+			//read food description up to comma
+			std::string Desc;
+			getline(istr, Desc, ',');
+			//read food price
+			double foodPrice = -1;
+			istr >> foodPrice;
+			istr.ignore();
+			//read  special status
+			char specialStatus;
+			istr >> specialStatus;
+			//check if cin is in good state, if cin not fail, call set 
+			//function to set all the value
+			if (!istr.fail()) {
+				this->set(tempName, Desc.c_str(), foodPrice, specialStatus);
+			}
 	}
 
 	void FoodOrder::display() {
-		static int counter = 0;
-		if (!isEmpty()) {
-			std::cout.width(2);
-			std::cout.setf(std::ios::left);
-			std::cout << ++counter << ". ";
-			std::cout.unsetf(std::ios::left);
-			std::cout << "No Order" << std::endl;
-		}
-		else {
+		if (!isEmpty())
+		{
 			double priceWithTax = m_foodPrice * (1 + g_taxrate);
 			double specialPrice = priceWithTax - g_dailydiscount;
-			std::cout.width(2);
-			std::cout.setf(std::ios::left);
-			std::cout << ++counter << ". ";
-			std::cout.unsetf(std::ios::left);
-			std::cout.width(10);
-			std::cout.setf(std::ios::left);
-			std::cout << m_customerName;
-			std::cout.unsetf(std::ios::left);
-			std::cout << "|";
-			std::cout.width(25);
-			std::cout.setf(std::ios::left);
-			std::cout << m_foodDescription;
-			std::cout.unsetf(std::ios::left);
-			std::cout << "|";
-			std::cout.width(12);
-			std::cout.setf(std::ios::fixed);
-			std::cout.precision(2);
-			std::cout.setf(std::ios::left);
-			std::cout << priceWithTax;
-			std::cout.unsetf(std::ios::left);
-			std::cout << "|";
 
-			if (m_dailySpecial) {
-				std::cout.width(13);
-				std::cout.setf(std::ios::right);
-				std::cout << specialPrice;
-				std::cout.unsetf(std::ios::right);
-				std::cout << std::endl;
-			}
+			cout << left << setw(2) << ++counter
+				<< ". "
+				<< left << setw(10) << m_customerName
+				<< "|"
+				<< left << setw(25) << m_foodDescription
+				<< "|"
+				<< left << setw(12) << fixed << setprecision(2) << priceWithTax
+				<< "|";
+			if (m_dailySpecial)
+				cout << right << setw(13) << specialPrice;
+			   cout << endl;
+		}
+		else {
+			cout << left << setw(2) << ++counter
+				<< ". "
+				<< "No Order"
+				<< endl;
+
 		}
 	}
 }

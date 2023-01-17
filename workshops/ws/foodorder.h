@@ -31,6 +31,7 @@ namespace sdds {
       void set(const char* customerName, const char* foodDescription, const double price, const char dailySpecial);
       void setEmpty();
       bool isEmpty();
+
    public:
       //Default constructor
       FoodOrder();
