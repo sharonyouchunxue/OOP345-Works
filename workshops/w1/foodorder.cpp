@@ -26,17 +26,18 @@ double g_taxrate = 0.0;
 double g_dailydiscount = 0.0;
 
 namespace sdds {
-	static int counter = 0;
 	//set all values
 	void FoodOrder::set(const char* customerName, const char* foodDescription, const double price, const char dailySpecial) {
 		strcpy(m_customerName, customerName);
-
 		m_foodDescription = new char[strlen(foodDescription) + 1];
 		strcpy(m_foodDescription, foodDescription);
-
 		m_foodPrice = price;
-
-		m_dailySpecial = dailySpecial == 'Y' ? true : false;
+		if (dailySpecial == 'Y') {
+			m_dailySpecial = true;
+		}
+		else {
+			m_dailySpecial = false;
+		}
 	}
 
 	//set safety empty state
@@ -64,40 +65,42 @@ namespace sdds {
 	//read(): a modifier that receives an istream reference.
 	void FoodOrder::read(std::istream& istr) {
 		setEmpty();
-			char tempName[10];
+			char tempcustName[10];
 			//read customer name up to comma
-			istr.get(tempName, 10, ',');
+			istr.get(tempcustName, 10, ',');
 			istr.ignore();
 			//read food description up to comma
-			std::string Desc;
-			getline(istr, Desc, ',');
+			std::string tempDescription;
+			getline(istr, tempDescription, ',');
 			//read food price
-			double foodPrice = -1;
-			istr >> foodPrice;
+			double tempFoodPrice = -1;
+			istr >> tempFoodPrice;
 			istr.ignore();
 			//read  special status
-			char specialStatus;
-			istr >> specialStatus;
+			char tempSpecialStatus;
+			istr >> tempSpecialStatus;
 			//check if cin is in good state, if cin not fail, call set 
 			//function to set all the value
 			if (!istr.fail()) {
-				this->set(tempName, Desc.c_str(), foodPrice, specialStatus);
+			   this->set(tempcustName, tempDescription.c_str(), tempFoodPrice, tempSpecialStatus);
 			}
 	}
 
+	//display function to print the formated value
 	void FoodOrder::display() {
+		static int counter = 0;
 		if (!isEmpty())
 		{
-			double priceWithTax = m_foodPrice * (1 + g_taxrate);
-			double specialPrice = priceWithTax - g_dailydiscount;
+			double afterTaxPrice= m_foodPrice * (1 + g_taxrate);
+			double specialPrice = afterTaxPrice - g_dailydiscount;
 
-			cout << left << setw(2) << ++counter
+			cout << left << setw(2) << ++counter 
 				<< ". "
 				<< left << setw(10) << m_customerName
 				<< "|"
 				<< left << setw(25) << m_foodDescription
 				<< "|"
-				<< left << setw(12) << fixed << setprecision(2) << priceWithTax
+				<< left << setw(12) << fixed << setprecision(2) << afterTaxPrice
 				<< "|";
 			if (m_dailySpecial)
 				cout << right << setw(13) << specialPrice;

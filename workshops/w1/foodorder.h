@@ -25,6 +25,7 @@ namespace sdds {
    class FoodOrder {
       //C-style null-terminated string
       char m_customerName[10];
+      //char m_foodDescription[25];
       char* m_foodDescription{};
       double m_foodPrice;
       bool m_dailySpecial;

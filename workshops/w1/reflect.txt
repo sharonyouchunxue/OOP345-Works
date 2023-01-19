@@ -1,0 +1,37 @@
+Reflection – Workshop One – Across Translation Units
+
+In this workshop we reviewed some topics from OOP244 and covered some new coding that I was not
+familiar with, especially internal and external linkage, and static variables.
+
+Regarding internal and external linkage, I learned that external linkage refers to an entity that is
+declared in a different scope within another translation unit. In c++ we use the keyword extern to
+identify it. The process I followed involved creating an implementation file, and then the compiler will
+generate a translation unit. For my workshop, it is my foodorder.cpp and foodorder.h files. The example
+from my code is showing below:
+
+extern double g_taxrate;
+extern double g_dailydiscount;
+
+For the internal linkage refers to everything only in scope of a translation unit. In c++ we use
+the key word static to identify internal linkage. The example from my code is showing below:
+
+static int counter = 0;
+I declared this inside of my foodorder.cpp file.
+
+The only static variable I used in my program is the &quot;static int counter = 0&quot; in the display
+function. The reason I used this variable is because this function has been called many times. After
+declaring a static variable, the counter variable will be able to maintain life until the main function
+ended.
+
+Finally, I made some changes to upgrade my FoodOrder class in part two. I initially stored the
+m_foodDescription as an array with maximum size of 25, and also in the read function.
+I was using the istr.get(tempDescription,25,',';) to get the food description. However, I found this way of
+coding to be challenging, as the description could be larger size than 25 characters. I removed
+the char m_foodDescription[25] and changed it to char* foodDescription{}. I then modified my read
+function for the food description to:
+
+std::string tempDescription;
+getline(istr, tempDescription,',')
+
+I did this so that it can read any length for the food description. I also modified this object to set the
+tempDescription.c_str().
