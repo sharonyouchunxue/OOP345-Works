@@ -35,7 +35,7 @@ namespace sdds {
          if (fin.is_open()) {
             while (getline(fin, temp))
                if (temp[0] == '>')
-                  counter++;
+                  ++counter; 
          }
          fin.close();
          //Each line (except the last one) will contain exactly 60 characters.
@@ -53,7 +53,7 @@ namespace sdds {
                   m_string[i] += temp;
                }
                if (temp[0] == '>' && !m_string[i].empty()) {
-                  i++;
+                  ++i;
                }
             }
             fin.close();
