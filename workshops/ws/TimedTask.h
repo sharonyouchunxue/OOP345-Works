@@ -36,6 +36,7 @@ namespace sdds {
       //the end time for the current task (an object of type std::chrono::steady_clock::time_point). 
       std::chrono::time_point<std::chrono::steady_clock> end;
    public:
+      //default constructor
       TimedTask();
       void startClock();
       void stopClock();

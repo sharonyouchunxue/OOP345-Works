@@ -15,9 +15,7 @@ complete my workshops and assignments.
 */
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <chrono>
 #include <iomanip>
-#include <cstring>
 #include "TimedTask.h"
 
 namespace sdds {
@@ -42,7 +40,7 @@ namespace sdds {
          m_task[m_noOfRecs].m_unitsOftime = "nanoseconds";
          //calculates and stores the duration of the event
          m_task[m_noOfRecs].m_duration = end - start;
-         //number of record increment by 1
+         //number of record increment
          m_noOfRecs++;
       }
    }

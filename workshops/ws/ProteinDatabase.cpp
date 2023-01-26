@@ -19,7 +19,6 @@
 #include <fstream>
 #include <string>
 #include "ProteinDatabase.h"
-using namespace std;
 
 namespace sdds {
 
@@ -31,8 +30,8 @@ namespace sdds {
        unsigned int counter = 0;
       if (filename) {
          //create instance ifstream
-         ifstream fin(filename);
-         string temp;
+         std::ifstream fin(filename);
+         std::string temp;
          if (fin.is_open()) {
             while (getline(fin, temp))
                if (temp[0] == '>')
@@ -42,7 +41,7 @@ namespace sdds {
          //Each line (except the last one) will contain exactly 60 characters.
          m_noOfstrings = counter;
          //allocates memory for that number of protein sequences in the array
-         m_string = new string[m_noOfstrings + 1];
+         m_string = new std::string[m_noOfstrings + 1];
          //re-reads the file and loads the protein sequences (i.e., string of characters 
          //not sequence names) into the array.
          unsigned int i = 0;
@@ -70,7 +69,7 @@ namespace sdds {
       //a query that returns a copy of the protein sequence at the index received 
       //as the function parameter. 
       std::string ProteinDatabase::operator[](size_t src) {
-         string copy = "";
+         std::string copy = "";
          //check if the index is invalid, this function, return an empty string.
          if (src > m_noOfstrings - 1 || src < 0 || m_noOfstrings == 0) {
             //copy = m_string[src];
@@ -85,7 +84,7 @@ namespace sdds {
    //copy constructor
 	ProteinDatabase::ProteinDatabase(const ProteinDatabase& src) {
 		if (src.m_string != nullptr) {
-			this->m_string = new string[src.m_noOfstrings];
+			this->m_string = new std::string[src.m_noOfstrings];
 			unsigned int i;
 			for (i = 0; i < src.m_noOfstrings; i++) {
 				this->m_string[i] = src.m_string[i];
@@ -97,7 +96,7 @@ namespace sdds {
    //copy assignment operator
    ProteinDatabase& ProteinDatabase::operator=(ProteinDatabase& src) {
 		if (this != &src) {
-			this->m_string = new string[src.m_noOfstrings];
+			this->m_string = new std::string[src.m_noOfstrings];
 			unsigned int i;
 			for (i = 0; i < src.m_noOfstrings; i++) {
 				this->m_string[i] = src.m_string[i];
