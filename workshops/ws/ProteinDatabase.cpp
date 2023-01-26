@@ -62,13 +62,13 @@ namespace sdds {
       }
 
       //a query that returns the number of protein sequences stored in the current object
-      std::size_t ProteinDatabase::size() {
+      std::size_t ProteinDatabase::size()const{
          return m_noOfstrings;
       }
 
       //a query that returns a copy of the protein sequence at the index received 
       //as the function parameter. 
-      std::string ProteinDatabase::operator[](size_t src) {
+      std::string ProteinDatabase::operator[](size_t src) const{
          std::string copy = "";
          //check if the index is invalid, this function, return an empty string.
          if (src > m_noOfstrings - 1 || src < 0 || m_noOfstrings == 0) {
