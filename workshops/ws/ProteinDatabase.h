@@ -27,7 +27,7 @@ namespace sdds {
       ProteinDatabase();
       //1-argument constructor
       ProteinDatabase(const char* filename);
-      std::size_t size();
+      std::size_t size()const;
       std::string operator[](size_t);
       //rule of five
       //copy constructor
