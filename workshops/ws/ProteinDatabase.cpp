@@ -52,7 +52,7 @@ namespace sdds {
                if (temp[0] != '>') {
                   m_string[i] += temp;
                }
-               if (temp[0] == '>' && !m_string[i].empty()) {
+               else if (temp[0] == '>' && m_string[i] != "\0") {
                   ++i;
                }
             }
@@ -69,39 +69,39 @@ namespace sdds {
       //a query that returns a copy of the protein sequence at the index received 
       //as the function parameter. 
       std::string ProteinDatabase::operator[](size_t src) const{
-         std::string copy = "";
+         std::string copy;
          //check if the index is invalid, this function, return an empty string.
-         if (src > m_noOfstrings - 1 || src < 0 || m_noOfstrings == 0) {
-            //copy = m_string[src];
-            return copy;
+         if (src > size()-1 || src < 0 || m_noOfstrings == 0) {
+            copy = "";
          }
          else {
-            return m_string[src];
+            copy = m_string[src];
          }
+         return copy;
    }
 
 
    //copy constructor
 	ProteinDatabase::ProteinDatabase(const ProteinDatabase& src) {
 		if (src.m_string != nullptr) {
-			this->m_string = new std::string[src.m_noOfstrings];
+			m_string = new std::string[src.m_noOfstrings];
 			unsigned int i;
 			for (i = 0; i < src.m_noOfstrings; i++) {
-				this->m_string[i] = src.m_string[i];
+				m_string[i] = src.m_string[i];
 			}
-			this->m_noOfstrings = src.m_noOfstrings;
+			m_noOfstrings = src.m_noOfstrings;
 	  }
    }
 
    //copy assignment operator
    ProteinDatabase& ProteinDatabase::operator=(ProteinDatabase& src) {
 		if (this != &src) {
-			this->m_string = new std::string[src.m_noOfstrings];
+			m_string = new std::string[src.m_noOfstrings];
 			unsigned int i;
 			for (i = 0; i < src.m_noOfstrings; i++) {
-				this->m_string[i] = src.m_string[i];
+				m_string[i] = src.m_string[i];
 			}
-			this->m_noOfstrings = src.m_noOfstrings;
+			m_noOfstrings = src.m_noOfstrings;
 		}
 		return (*this);
    }
@@ -114,9 +114,9 @@ namespace sdds {
    ProteinDatabase& ProteinDatabase::operator=(ProteinDatabase&& src) noexcept{
 		if (this != &src) {
 			delete[] m_string;
-			this->m_string = src.m_string;
+			m_string = src.m_string;
 			src.m_string = nullptr;
-			this->m_noOfstrings = src.m_noOfstrings;
+			m_noOfstrings = src.m_noOfstrings;
 			src.m_noOfstrings = 0u;
 		}
 		return (*this);
