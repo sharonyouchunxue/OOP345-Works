@@ -23,7 +23,7 @@ namespace sdds {
    //class template collection, it takes two parameters
    //T: the type of any element in the collection
    //CAPACITY: the capacity of the collection (a non-type parameter; an integer without sign). 
-   template<typename T, size_t CAPACITY>
+   template<typename T, int CAPACITY>
    class Collection {
    protected:
       T arr[CAPACITY];
@@ -32,7 +32,7 @@ namespace sdds {
       T dummy{};
    public:
       //default constructor
-      Collection(){}
+      Collection() {};
       //destructor
       virtual ~Collection() {}
       //a query that returns the current number of elements in the collection

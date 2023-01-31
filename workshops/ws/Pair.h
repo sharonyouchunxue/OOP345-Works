@@ -31,7 +31,6 @@ namespace sdds {
          return m_value;
       }
       Pair(const std::string& key, const std::string& value) : m_key{ key }, m_value{ value } {};
-      //virtual ~Pair() = default;
       // TODO: Add here the missing prototypes for the member
       static bool isSameKey(const Pair&, const Pair&);
       Pair(){};
