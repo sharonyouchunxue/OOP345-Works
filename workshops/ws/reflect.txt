@@ -1,0 +1,35 @@
+Reflection - Workshop Two - Move and Copy Semantics
+
+In workshop two, I was tasked to read contents from a text file using an input stream object, count the number 
+of the contents in it and monitor the time spent on a particular task using the std::chrono library. A concept 
+we learned for this workshop is the rule of five, which are copy constructor, copy assignment operator, move 
+constructor, move assignment operator and destructor. I first created the TimedTask Module. This module required 
+me to use a new std::chrono library, which is a flexible collection of types that can track time with varying 
+degrees of precision. I then created the ProteinDatabase Module. In this module, I created a default constructor, 
+one argument constructor and rule of three. Within the one argument constructor I used an input file stream 
+object so that I can read the records from a text file. I also created another two functions. One is the size 
+function that can return the number of the strings, and another query that returns a copy of the protein 
+sequence at the index received as the function parameter. 
+
+For the second part of the workshop, I was tasked to modify my program to add the move constructor and move 
+assignment operator so that we can track the time difference between copy and move. After implementing the 
+functions, I tested my code. I noticed the output seemed like the move operations were significantly faster 
+than the copy operations. I think the reason for this is because copying an object means we have to copy its 
+contents in memory, but moving is stored in heap memory and is used to convert a lvalue reference into the 
+rvalue reference. Below is an example of my copy constructor and move copy constructor:
+   //copy constructor
+	ProteinDatabase::ProteinDatabase(const ProteinDatabase& src) {
+             	if (src.m_string != nullptr) {
+			this->m_string = new string[src.m_noOfstrings];
+			unsigned int i;
+			for (i = 0; i < src.m_noOfstrings; i++) {
+				this->m_string[i] = src.m_string[i];
+			}
+			this->m_noOfstrings = src.m_noOfstrings;
+	  }
+   }
+
+//move copy constructor
+   ProteinDatabase::ProteinDatabase(ProteinDatabase&& src) noexcept {
+       *this = std::move(src);
+   }
