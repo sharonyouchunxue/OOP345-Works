@@ -1,0 +1,39 @@
+Reflection - Workshop Three – Templates
+
+In this workshop, the primary topic that I walked through is templates. Templates are the
+foundation for generic programming in C++. A template is a blueprint or formula for creating
+classes or functions. When we use a generic type, such as vector, or generic function, we supply
+the information needed to transform that blueprint into a specific class or function. That
+transformation happens during compilation.
+
+This workshop consists of four modules. I was tasked to complete the Pair module, which was
+partially supplied. I also had to create another two modules: Collection and Set. These two
+modules are only header files, not .cpp file. This is because A class definition must be defined
+before an instance of the class is created. The compiler needs to have access to the
+implementation of the methods to instantiate them with the template argument. If these
+implementations were not in the header, they wouldn't be accessible, and therefore the compiler
+wouldn't be able to instantiate the template.
+
+For the partially implemented module Pair, I added two boolean functions. One boolean function
+takes two objects to validate if they have the same key as follows:
+bool Pair::isSameKey(const Pair& L, const Pair& R){
+     return (L.m_key == R.key);}
+
+Another boolean function is the comparison operator overloads == to get the key if the two
+objects have the same key:
+bool operator==(const Pair& pair) const {
+     Return m_key = pair.getKey();}
+
+I also added a virtual display function that can print the correct format out to the console, and a
+standalone helper function to overload the insertion operator to insert Pair into a stream.
+
+In the Set module, I was asked to add a specialization for the add() member function. The reason
+for doing this is because even if the difference between the values is insignificantly small for the
+purpose of this code, the compiler will return the value instead of returning false. Therefore, we
+add the specialization so that compiler will consider the two numbers the same and return false if
+the difference is less than 0.01.
+
+The reason for defining the class variable outside the class definition is because static member
+variables are not part of the individual class objects (they are treated similarly to global variables
+and get initialized when the program starts). Therefore, you must explicitly define the static
+member outside of the class in the global scope.
