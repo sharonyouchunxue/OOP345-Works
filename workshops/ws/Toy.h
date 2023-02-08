@@ -24,7 +24,6 @@ namespace sdds {
       size_t m_noOfordered{ 0 };
       double m_price{ 0.00 };
       const double m_saleTax = 0.13;
-
    public:
       Toy();
       void update(int numItems);

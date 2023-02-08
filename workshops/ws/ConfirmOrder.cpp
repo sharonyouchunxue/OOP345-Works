@@ -123,6 +123,5 @@ namespace sdds {
       }
       return ostr;
    }
-
 }
 

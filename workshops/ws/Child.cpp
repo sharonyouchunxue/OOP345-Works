@@ -96,7 +96,7 @@ namespace sdds {
 
    }
 
-   //Helpers
+   //friend Helpers
    //overload the insertion operator to insert the content of a Child object into an ostream object.
    std::ostream& operator<<(std::ostream& ostr, const Child& C) {
       //This operator should use a local to function variable to count how many times 

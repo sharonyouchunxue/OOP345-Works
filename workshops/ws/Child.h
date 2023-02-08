@@ -37,7 +37,7 @@ namespace sdds {
       size_t size() const;
       friend std::ostream& operator<<(std::ostream& ostr ,const Child& );
    };
-   //std::ostream& operator<<(std::ostream& ostr, const Child&);
+
 }
 
 #endif //!SDDS_CHILD_H_

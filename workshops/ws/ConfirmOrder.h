@@ -34,7 +34,6 @@ namespace sdds {
       ConfirmOrder& operator-=(const Toy& toy);
       friend std::ostream& operator<<(std::ostream& ostr ,const ConfirmOrder& ) ;
    };
-
 }
 #endif //!SDDS_CONFIRMORDER_H_
 

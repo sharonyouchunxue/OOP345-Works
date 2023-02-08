@@ -208,7 +208,6 @@ int main(int argc, char** argv)
 		// cleanup
 		for (auto item : toys)
 			delete item;
-
 	}
 
 	// cleanup
