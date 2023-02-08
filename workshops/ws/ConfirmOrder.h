@@ -14,7 +14,6 @@ the coding by myself and only copied the code that my professor provided to
 complete my workshops and assignments.
 *****************************************************************************
 */
-
 #ifndef SDDS_CONFIRMORDER_H_
 #define SDDS_CONFIRMORDER_H_
 #include "Toy.h"
