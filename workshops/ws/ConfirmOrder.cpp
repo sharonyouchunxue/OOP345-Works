@@ -59,6 +59,7 @@ namespace sdds {
    //5. destructor
    ConfirmOrder::~ConfirmOrder() {
       delete[] m_toy;
+      m_toy = nullptr;
    }
 
    ConfirmOrder& ConfirmOrder::operator+=(const Toy& toy) {
@@ -78,23 +79,9 @@ namespace sdds {
          temp[m_noOfRecs] = &toy;
          ++m_noOfRecs;
       }
-        /* if (m_noOfRecs) {
-            delete[] m_toy;
-            m_toy = nullptr;
-         }
-         m_toy = temp;
-         temp[m_noOfRecs] = &toy;
-         ++m_noOfRecs;
-      }*/
       return *this;
    }
-   ConfirmOrder& ConfirmOrder::operator-=(const Toy& toy) {
-    /*  for (size_t i = 0; i < 5; i++) {
-         if (&toy == m_toy[i]) {
-            m_toy[i] = nullptr;
-            m_noOfRecs--;
-         }
-      }*/
+   ConfirmOrder& ConfirmOrder::operator-=(const Toy& toy) { 
       size_t count = 0;
       for (size_t i = 0; i < m_noOfRecs; ++i) {
          if (m_toy[i] == &toy) {
@@ -103,7 +90,7 @@ namespace sdds {
          }
       }
       if (count > 0) {
-         const Toy** temp = new const Toy * [m_noOfRecs - count];
+         const Toy** temp = new const Toy*[m_noOfRecs - count];
 
          for (size_t i = 0, j = 0; i < m_noOfRecs; ++i) {
             if (m_toy[i])
@@ -120,24 +107,21 @@ namespace sdds {
       return *this;
    }
 
-   std::ostream& ConfirmOrder::display(std::ostream& ostr) const {
+   std::ostream& operator<<(std::ostream& ostr, const ConfirmOrder& C) {
       ostr << "--------------------------" << std::endl;
       ostr << "Confirmations to Send" << std::endl;
       ostr << "--------------------------" << std::endl;
-      if (m_noOfRecs == 0) {
+      if (C.m_noOfRecs == 0) {
          ostr << "There are no confirmations to send!" << std::endl;
+         ostr << "--------------------------" << std::endl;
       }
       else {
-         for (size_t i = 0; i < m_noOfRecs; ++i) {
-            m_toy[i]->display();
+         for (size_t i = 0; i < C.m_noOfRecs; ++i) {
+            ostr << *(C.m_toy[i]);
          }
          ostr << "--------------------------" << std::endl;
       }
       return ostr;
-   }
-
-   std::ostream& operator<<(std::ostream& ostr, const ConfirmOrder& confirm){
-      return confirm.display(ostr);
    }
 
 }

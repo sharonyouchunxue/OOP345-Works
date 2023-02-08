@@ -54,25 +54,23 @@ namespace sdds {
       //the price of this toy
       tempStr.erase(0, tempStr.find_first_not_of(' '));
       tempIdx = tempStr.find(':');
-      m_price = std::stoi(tempStr.substr(0, tempIdx));
+      m_price = std::stod(tempStr.substr(0, tempIdx));
       tempStr.erase(0, tempIdx + 1);
    }
 
-   std::ostream& Toy::display(std::ostream& ostr) const{
-      ostr << "Toy" << std::setw(8) << m_orderID << ":"
-         << std::setw(18) << std::right << m_toyName << std::setw(3)
-         << m_noOfordered << " " << "items" << std::setw(8)
-         << m_price << std::fixed << std::setprecision(2)
-         << "/item subtotal:" << std::setw(7) << std::fixed << std::setprecision(2)
-         << (m_noOfordered) * (m_price) << " "
-         << "tax:" << std::setw(6) << (m_noOfordered) * (m_price * m_saleTax) << " "
-         << "total:" << std::setw(7) << (m_noOfordered * m_price) * (1 + m_saleTax) << std::endl;
+   std::ostream& operator<<(std::ostream& ostr, const Toy& T) {
+      ostr << "Toy" << std::setw(8) << T.m_orderID << ":"
+         << std::setw(18) << std::right << T.m_toyName << std::setw(3)
+         << T.m_noOfordered << " " << "items" << std::setw(8)
+         << T.m_price << std::fixed << std::setprecision(2)
+         << "/item  subtotal:" << std::setw(7) << std::fixed << std::setprecision(2)
+         << (T.m_noOfordered) * (T.m_price) << " "
+         << "tax:" << std::setw(6) << (T.m_noOfordered) * (T.m_price * T.m_saleTax) << " "
+         << "total:" << std::setw(7) << (T.m_noOfordered * T.m_price) * (1 + T.m_saleTax) << std::endl;
       return ostr;
    }
 
- 
-   std::ostream& operator<<(std::ostream& ostr, const Toy& toy){
-      return toy.display(ostr);
-   }
+   Toy::~Toy(){}
+
 
 }

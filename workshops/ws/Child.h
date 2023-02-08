@@ -21,7 +21,8 @@ namespace sdds {
    class Child {
       std::string m_name{};
       size_t m_age{};
-      const Toy** m_toy{};
+      const sdds::Toy** m_toy = nullptr;
+      //Toy* m_toy{ nullptr };
       size_t m_noOfToys{};
    public:
       Child();
@@ -31,12 +32,14 @@ namespace sdds {
       Child(Child&& C)noexcept;
       Child& operator=(const Child& C);
       Child& operator=(Child&& C)noexcept;
-      virtual ~Child();
+     ~Child();
 
       size_t size() const;
-      std::ostream& display(std::ostream& ostr = std::cout)const;
+      friend std::ostream& operator<<(std::ostream& ostr ,const Child& );
    };
-   std::ostream& operator<<(std::ostream& ostr, const Child&);
+   //std::ostream& operator<<(std::ostream& ostr, const Child&);
 }
 
 #endif //!SDDS_CHILD_H_
+
+

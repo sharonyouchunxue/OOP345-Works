@@ -20,7 +20,7 @@ complete my workshops and assignments.
 #include "Toy.h"
 namespace sdds {
    class ConfirmOrder {
-      const Toy** m_toy{ nullptr };
+      const sdds::Toy** m_toy = nullptr;
       size_t m_noOfRecs{};
    public:
       ConfirmOrder();
@@ -29,13 +29,12 @@ namespace sdds {
       ConfirmOrder& operator=(const ConfirmOrder&);
       ConfirmOrder(ConfirmOrder&&)noexcept;
       ConfirmOrder& operator=(ConfirmOrder&&)noexcept;
-      virtual ~ConfirmOrder();
+      ~ConfirmOrder();
 
       ConfirmOrder& operator+=(const Toy& toy);
       ConfirmOrder& operator-=(const Toy& toy);
-      std::ostream& display(std::ostream& ostr = std::cout)const;
+      friend std::ostream& operator<<(std::ostream& ostr ,const ConfirmOrder& ) ;
    };
-   std::ostream& operator<<(std::ostream& ostr, const ConfirmOrder& );
 
 }
 #endif //!SDDS_CONFIRMORDER_H_

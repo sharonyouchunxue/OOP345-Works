@@ -22,16 +22,16 @@ namespace sdds {
       std::string m_orderID{}; //a positive number
       std::string m_toyName{};
       size_t m_noOfordered{ 0 };
-      double m_price{ 0.0 };
+      double m_price{ 0.00 };
       const double m_saleTax = 0.13;
 
    public:
       Toy();
       void update(int numItems);
       Toy(const std::string& toy);
-      virtual std::ostream& display(std::ostream& ostr = std::cout)const;
+      friend std::ostream& operator<<(std::ostream& ostr, const Toy&);
+       ~Toy();
    };
-   std::ostream& operator<<(std::ostream& ostr, const Toy&);
 }
 
 #endif //!SDDS_TOY_H_

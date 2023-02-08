@@ -18,15 +18,15 @@ complete my workshops and assignments.
 
 namespace sdds {
    //default constructor
-   Child::Child() {}
+   Child::Child() {
+   }
 
    //four argument constructor to copy the value from class
-   Child::Child(std::string name, int age, const Toy* toys[], size_t count) {
-      //dynamic allocate  array of pointer to the object
-      m_toy = new const Toy * [count];
-      for (size_t i = 0; i < count; ++i) {
-         m_toy[i] = new Toy(*toys[i]);
-      }
+   Child::Child(std::string name, int age, const Toy* toys[], size_t count){    
+         m_toy = new const Toy*[count]; 
+         for (size_t i = 0; i < count; i++) { 
+            m_toy[i] = new Toy(*(toys[i])); 
+         }
       //copy all other varibale to be stored
       m_name = name;
       m_age = age;
@@ -36,21 +36,28 @@ namespace sdds {
    //Rule of five
    //1.copy constructor
    Child::Child(const Child& C) {
-      *this = C;
+      operator = (C);
    }
 
    //2. copy assignment operator
    Child& Child::operator=(const Child& C) {
-      if (this != &C) {
-         delete[] m_toy;
-         m_toy = new const Toy * [C.m_noOfToys];
-         for (size_t i = 0; i < C.m_noOfToys; i++) {
-            m_toy[i] = C.m_toy[i];
+      if (this != &C)
+      {
+         for (size_t i = 0; i < m_noOfToys; ++i) {
+            delete m_toy[i];
          }
-         m_name = C.m_name;
-         m_age = C.m_age;
+            
+         delete[] m_toy;
          m_noOfToys = C.m_noOfToys;
-      }
+
+         m_age = C.m_age;
+         m_name = C.m_name;
+
+         m_toy = new const Toy * [m_noOfToys];
+         for (size_t i = 0; i < m_noOfToys; i++) {
+            m_toy[i] = new Toy(*(C.m_toy[i]));
+         }
+        }
       return *this;
    }
 
@@ -76,12 +83,11 @@ namespace sdds {
    }
 
    //5. destructor
-   Child::~Child() {
-      for (size_t i = 0; i < m_noOfToys; i++) {
+   Child::~Child() { 
+      for (size_t i = 0; i < m_noOfToys; ++i)
          delete m_toy[i];
-      }
       delete[] m_toy;
-
+      m_toy = nullptr;
    }
 
    //a query that returns the number of toys stored in the array attribute.
@@ -92,20 +98,20 @@ namespace sdds {
 
    //Helpers
    //overload the insertion operator to insert the content of a Child object into an ostream object.
-   std::ostream& Child::display(std::ostream& ostr) const {
+   std::ostream& operator<<(std::ostream& ostr, const Child& C) {
       //This operator should use a local to function variable to count how many times 
       //this operator has been called
       static size_t counter = 1;
       ostr << "--------------------------" << std::endl;
-      ostr << "Child" << " " << counter++ << ":" << m_name << " "
-         << m_age << " " << "years old:" << std::endl;
+      ostr << "Child" << " "<< counter++ << ": " << C.m_name << " "
+         << C.m_age << " " << "years old:" << std::endl;
       ostr << "--------------------------" << std::endl;
-      if (m_noOfToys == 0) {
+      if (C.m_noOfToys == 0) {
          ostr << "This child has no toys!" << std::endl;
       }
       else {
-         for (size_t i = 0; i < m_noOfToys; i++) {
-             m_toy[i]->display();
+         for (size_t i = 0; i < C.m_noOfToys; i++) {
+             ostr << *(C.m_toy[i]);
          }
       }
       ostr << "--------------------------" << std::endl;
@@ -113,8 +119,5 @@ namespace sdds {
       counter++;
    }
 
-   std::ostream& operator<<(std::ostream& ostr, const Child& child){
-      return child.display(ostr);
-   }
-
 }
+
