@@ -1,0 +1,39 @@
+Reflection - Workshop Four – Containers
+
+In workshop four, the primary topics I walked through were composition, aggregation, and associations. In object-oriented 
+programming languages, object composition is used for objects that have a “has-a” relationship with each other. An aggregation is a
+composition that does not manage the creation or destruction of the objects that it uses. An association is a service relationship,
+and it does not involve any ownership of one type by another. Each type is independent and complete without the related type.
+
+I was tasked to code three classes that are in composition and aggregation relations. The classes will simulate an order system for 
+children's toys. The child will manage a collection of toys (composition) and an order system will sendconfirmations for the toys.
+
+I first completed module one - Toy. I found this module to be the least challenging, however it was time-consuming to remove all 
+the leading and trailing spaces from the string. I was able to resolve this module by carefully reviewing the references web list 
+that provided.
+
+For part two, I was tasked to create a child module and confirmOrder module. The child module is a composition relationship with the toy module. We 
+implement this composition using the array of the pointer of toy object (const sdds::Toy** m_toy = nullptr;). The toy object does 
+not exist apart from the child object. Considering this, we need to include copy constructor, assignment operator and destructor 
+to allow for deep copying and assignment in the child module, then use the array of pointer that we declared for toy to manage the 
+creation and destruction of the toy object. The toy class has ownership of the child object.
+
+Child::Child(std::string name, int age, const Toy* toys[], size_t count){
+m_toy = new const Toy*[count];
+for (size_t i = 0; i &lt; count; i++) {
+m_toy[i] = new Toy(*(toys[i]));
+}
+//copy all other varibale to be stored
+m_name = name;
+
+m_age = age;
+m_noOfToys = count;
+}
+
+The ConfirmOrder module is an aggregation relation with toy module. The ConfirmOrder also includes an array of pointer of toy 
+object (const sdds::Toy**m_toy = nullptr;). The toy can exist without the ConfirmOrder. 
+
+Aggregation is different from composition in that it does not imply ownership. In composition, when the owning object is destroyed, 
+so are the contained objects. In aggregation, this is not necessarily true. When implementing a class with a resource for copying 
+and destroying its resource, then we treat it as composition.  If it is not  responsible for copying or destroying its resource, 
+then we treat the class as an aggregation or an association.
