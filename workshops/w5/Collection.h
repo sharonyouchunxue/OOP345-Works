@@ -87,6 +87,7 @@ namespace sdds {
          return *this;
       }
 
+
       //returns the item at index idx.
       T& operator[](size_t idx) const {
          //if the index is out of range, this operator throws an exception of type
