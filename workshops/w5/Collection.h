@@ -1,4 +1,3 @@
-#pragma once
 /*
 *****************************************************************************
                         Workshop 5
@@ -94,7 +93,7 @@ namespace sdds {
          //std::out_of_range with the message Bad index [IDX]. Collection has [SIZE] items.. 
          //Use operator + to concatenate strings
          if (idx >= size()) {
-            std::string err = "Bad index [" + std::to_string(idx) + "].Collection has[" + std::to_string(m_numOfitems) + "] items.";
+            std::string err = "Bad index [" + std::to_string(idx) + "]. Collection has [" + std::to_string(m_numOfitems) + "] items.";
             throw std::out_of_range(err);                                         
          }
          return m_items[idx];

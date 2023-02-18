@@ -50,10 +50,7 @@ namespace sdds {
       
       //DESCRIPTION
       tempStr.erase(0, tempStr.find_first_not_of(' '));
-      tempIndx = tempStr.find(',');
-      m_descrip = tempStr.substr(0, tempIndx);
-      m_descrip.erase(m_descrip.find_last_not_of(' ') + 1);
-      tempStr.erase(0, tempIndx + 1);
+      m_descrip = tempStr;
 
    }
 

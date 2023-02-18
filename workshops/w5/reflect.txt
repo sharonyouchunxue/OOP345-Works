@@ -1,0 +1,49 @@
+Reflection - Workshop Five – Functions and Error Handling
+
+In workshop five, the primary topics I walked through were functions and error handling. In the function part, I learned about 
+function linage and recursion, function pointer, and object and lambda expression. For error handling, I was introduced to exceptions 
+and how to report and handle them, as well as the different ways of terminating an application prematurely.
+
+1. the difference between the implementations/utilizations of a functor and a lambda expression. When is appropriate to use each one?
+   The key difference between these two concepts in implementations is that the functor is self-documenting by default, but lambda's 
+   need to be stored in variables inside more-complex algorithm definitions. Lambda functions can be made anonymous and areefficient
+   whenever you want to create a function that will only contain simple expression. A functor on the other hand is an object that 
+   can be called like a function and have multiple states. This provides a greater level of flexibility as the data being worked with
+   will be remembered and carried between subsequent calls. For example, the functor I created in the workshop:
+                        void SpellChecker::operator()(std::string&amp; text){
+                              for (size_t i = 0; i &lt; MAX_STR_SIZE; ++i) {
+                                   while (text.find(m_badWords[i]) != std::string::npos) {
+                                   text.replace(text.find(m_badWords[i]), m_badWords[i].size(),m_goodWords[i]);
+                                    ++m_replace[i];
+                                     }
+                                    }
+                                   }
+    For the lambda expression in my code:
+                         auto exchangeRate = [=](Book&amp; book) {
+                                  if (book.country() == "US")
+                                        book.price() *= usdToCadRate;
+                                  else if (book.country() == "UK"&& book.year() >= 1990&&book.year()<= 1999)
+                                        book.price() *= gbpToCadRate;
+                                  return book;
+                                };
+
+2. the constructor for SpellChecker generates an exception in certain conditions. How would you change your code to achieve the 
+   same result, but without exceptions (both on the constructor and on the client side)? Compare the two solutions.
+   If we do not use exception for the SpellChecker constructor, I would add a std::cout to display an error message when the open 
+   file is failed and to return null or default value. I think it is better to the add exception into the code because it can 
+   control run time errors that occur in the program. It can also avoid abnormal termination of the program and shows the behavior 
+   of the program to users.
+
+3. the classes Movie and Book contain almost identical logic in loading data from the file. How would you redesign the classes in 
+order not to duplicate that logic?
+   For the Movie and Book class I used almost exactly same logic as loading data from a file: Book(const std::string&; strBook); 
+   Movie(const std::string&; strMovie); In order to avoid the duplication for the classes, I could create another function called 
+   trim that will generate the duplication code inside trim for all spaces from the beginning and end of any token in the string. 
+   Instead of needing to use the same logic, we can simply call the function to get the same result.
+
+4. the classes Movie and Book are instantiated from the main () function using a custom constructor, but they also contain a default 
+   constructor. Is the default constructor necessary? Could you remove it? Justify your answer.
+   The default constructor for Book and Movie is necessary and cannot be removed, even though they are both empty. If I remove them, 
+   there will be a compiling error. The error message will be no appropriate default constructor available in Collection.h file. In
+   Collection<T>&operator+=(const T&), the default constructor is called when resizing the collection array and will be adding the 
+   new item into it.
