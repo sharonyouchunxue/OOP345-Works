@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-﻿// Workshop 5 - Functions and Error Handling
-=======
-// Workshop 5 - Functions and Error Handling
->>>>>>> 1b4e4da2005f5c6fd49fb989214ab786d279cd99
 // 2020/02 - Cornel
 // 2021/01/19 - Chris
 // 2021/02/12 - Cornel
-
 #include <iostream>
 #include <iomanip>
 #include <fstream>
