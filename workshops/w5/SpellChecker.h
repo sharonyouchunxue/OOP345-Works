@@ -29,7 +29,6 @@ namespace sdds {
       void showStatistics(std::ostream& out) const;
 
    };
-
 }
 #endif // !SDDS_SPELLCHECKER_H_
 

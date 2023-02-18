@@ -41,7 +41,6 @@ namespace sdds {
       }
 
       friend std::ostream& operator<<(std::ostream& ostr, const Book& B);
-
    };
 }
 

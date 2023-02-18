@@ -36,6 +36,5 @@ namespace sdds {
       friend std::ostream& operator<<(std::ostream& ostr, const Movie& M);
    };
 
-
 }
 #endif // ! SDDS_MOVIE_H_
