@@ -5,8 +5,6 @@
 #include "Utilities.h"
 #include "College.h"
 #include "College.h"
-#include "Student.h"
-#include "Professor.h"
 
 void loadData(const char* filename, sdds::College& theCollege)
 {
@@ -27,8 +25,10 @@ void loadData(const char* filename, sdds::College& theCollege)
 			if (thePerson)
 				theCollege += thePerson;
 		}
-		catch (std::string& err) {
-			//std::cout << err << std::endl;
+		catch (const std::invalid_argument& e) {
+			//handle the exception
+			std::cerr << "Exception caught: " << e.what() << std::endl;
+			
 		}
 	}
 }
@@ -51,7 +51,7 @@ int main(int argc, char** argv)
 		// TODO: Create a lambda expression that receives as parameter `const sdds::Person*`
 		//         and returns true if the person is student.
 		auto students = [](const sdds::Person* person) {
-			return typeid(*person) == typeid(sdds::Student);
+			return return person->status() == "Student";
 		};
 
 		theCollege.select(students, persons);
@@ -71,7 +71,7 @@ int main(int argc, char** argv)
 		// TODO: Create a lambda expression that receives as parameter `const sdds::Person*`
 		//         and returns true if the person is professor.
 		auto professors = [](const sdds::Person* person) {
-			return typeid(*person) == typeid(sdds::Professor);
+			return person->status() == "Professor";
 		};
 		theCollege.select(professors, persons);
 
