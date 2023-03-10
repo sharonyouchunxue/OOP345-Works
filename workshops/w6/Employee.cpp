@@ -38,18 +38,13 @@ namespace sdds {
       }
 
       // read Employee id
-      try {
          getline(istr, m_id, ',');
          m_id = removeSpace(m_id);
          //check validation with letter E 
          if (m_id.empty() || m_id[0] != 'E') {
             throw std::invalid_argument(m_name + "++Invalid record!");
-         }
       }
-      catch (const std::invalid_argument& e) {
-         // handle the exception here
-         std::cerr << "Exception caught: " << e.what() << std::endl;
-       }
+     
 }
 
    std::string Employee::status() const{
@@ -69,7 +64,7 @@ namespace sdds {
    }
 
    void Employee::display(std::ostream& out) const{
-      out << "| " << std::left << std::setw(10) << status()
+      out << "| " << std::left << std::setw(10) << Employee::status()
          << " | " << std::left << std::setw(10) << id()
          << " | " << std::left << std::setw(20) << name()
          << " | " << std::right << std::setw(3) << age() << " |";
