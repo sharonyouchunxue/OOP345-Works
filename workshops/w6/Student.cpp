@@ -29,30 +29,18 @@ namespace sdds {
       m_name = removeSpace(m_name);
 
       //get age
-      try {
          getline(istr, m_age, ',');
          m_age = removeSpace(m_age);
          if (!isInteger(m_age)) {
             throw std::invalid_argument(m_name + "++Invalid record!");
-         }
-      }
-      catch (const std::invalid_argument& e) {
-         // handle the exception here
-         std::cerr << "Exception caught: " << e.what() << std::endl;
       }
 
       // get id
-      try {
          getline(istr, m_id, ',');
          m_id = removeSpace(m_id);
          // code that might throw an exception
          if (m_id.empty() || m_id[0] != 'S') {
             throw std::invalid_argument(m_name + "++Invalid record!");
-         }
-      }
-      catch (const std::invalid_argument& e) {
-         // handle the exception here
-         std::cerr << "Exception caught: " << e.what() << std::endl;
       }
 
       //number of course
