@@ -5,7 +5,7 @@ Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-01
+Date       : 2023-03-04
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -20,9 +20,8 @@ complete my workshops and assignments.
 #include <sstream>
 #include "Student.h"
 namespace sdds {
-   Student::Student()
-   {
-   }
+   Student::Student(){}
+
    Student::Student(std::istream& istr){
       // get name
       getline(istr, m_name, ',');
@@ -59,7 +58,7 @@ namespace sdds {
       std::string num_course, course_list;
       getline(istr, num_course, ',');
       std::stringstream ss;
-      ss << m_age << ' ' << num_course; 
+      ss << m_age << ' ' << num_course;
    
       ss >> m_count;
       if (ss.fail() || m_count < 0) {
@@ -69,30 +68,34 @@ namespace sdds {
       // allocate memory for courses array and parse course list
       m_courses = new std::string[m_count];
       std::stringstream course_ss(course_list);
-      for (int i = 0; i < m_count; ++i) {
+      for (int i = 0; i < m_count; ++i) {         
          std::getline(istr, m_courses[i]);
          m_courses[i] = removeSpace( m_courses[i]);
       }
  
    }
 
+   //returns the word Student
    std::string Student::status() const{
       return std::string("Student");
    }
 
+   //return name of the student
    std::string Student::name() const{
       return m_name;
    }
 
+   //return student age
    std::string Student::age() const{
       return m_age;
    }
 
-   std::string Student::id() const
-   {
+   //return id
+   std::string Student::id() const{
       return m_id;
    }
 
+   //print the student record in format
    void Student::display(std::ostream& out) const{     
       out << "| " << std::left << std::setw(10) << status()
          << " | " << std::left << std::setw(10) << id()
@@ -100,14 +103,15 @@ namespace sdds {
          << " | " << std::right << std::setw(3) << age() << " | ";
       for (int i = 0; i < m_count; i++) {
          out << std::right << m_courses[i];
-      }
-       
+      }     
    }
 
+   //destructor
    Student::~Student(){
       delete[] m_courses;
    }
 
+   //check if it is integer
    bool Student::isInteger(std::string& str) const {
       bool res = true;
       for (size_t i = 0u; i < str.size() && res; i++) {
@@ -118,6 +122,7 @@ namespace sdds {
       return res;
    }
 
+   //remove all the leading spaces
    std::string Student::removeSpace(const std::string& str) {
       size_t first = str.find_first_not_of(' ');
       if (std::string::npos == first) {

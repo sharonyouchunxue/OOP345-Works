@@ -5,7 +5,7 @@ Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-01
+Date       : 2023-03-04
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -17,15 +17,16 @@ complete my workshops and assignments.
 #define SDDS_STUDENT_H
 #include "Person.h"
 namespace sdds {
-   class Student:public Person{
+   // inherits the abstract class Person
+   class Student : public Person{
       std::string m_name{};
       std::string m_age{};
       std::string m_id{};
-      //std::vector<std::string> m_courses;
-      std::string* m_courses{};
-      size_t m_count{};
+      std::string* m_courses{};//dynamically allocated array of strings
+      size_t m_count{};//number of courses in the array
    public:
       Student();
+      //read student record
       Student(std::istream& istr);
       std::string status() const;
       std::string name() const;

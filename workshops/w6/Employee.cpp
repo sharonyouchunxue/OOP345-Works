@@ -5,7 +5,7 @@ Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-01
+Date       : 2023-03-04
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -30,19 +30,25 @@ namespace sdds {
       m_name = removeSpace(m_name);
 
       //read age
-      getline(istr, m_age, ',');
-      m_age = removeSpace(m_age);
-      //check if it is integer, if not throw message
-      if (!isInteger(m_age)) {
-         throw std::invalid_argument(m_name + "++Invalid record!");
+      try {
+         getline(istr, m_age, ',');
+         m_age = removeSpace(m_age);
+         //check if it is integer, if not throw message
+         if (!isInteger(m_age)) {
+            throw std::invalid_argument(m_name + "++Invalid record!");
+         }
       }
-
-      // read Employee id
+      catch (const std::invalid_argument& e) {
+         // handle the exception here
+         std::cerr << "Exception caught: " << e.what() << std::endl;
+      }
+     
+      // read Employee id  
       try {
          getline(istr, m_id, ',');
          m_id = removeSpace(m_id);
          //check validation with letter E 
-         if (m_id.empty() || m_id[0] != 'E') {
+         if (m_id.empty() || m_id[0]!= 'E') {
             throw std::invalid_argument(m_name + "++Invalid record!");
          }
       }
@@ -52,22 +58,27 @@ namespace sdds {
        }
 }
 
+   //returns the string Employee
    std::string Employee::status() const{
       return std::string("Employee");
    }
 
+   //returns the name of the employee
    std::string Employee::name() const{
       return m_name;
    }
 
+   //returns the id of the employee
    std::string Employee::id() const{
       return m_id;
    }
 
+   //returns the age of the employee
    std::string Employee::age() const{
       return m_age;
    }
 
+   //print Employee recod in format
    void Employee::display(std::ostream& out) const{
       out << "| " << std::left << std::setw(10) << status()
          << " | " << std::left << std::setw(10) << id()
@@ -75,6 +86,7 @@ namespace sdds {
          << " | " << std::right << std::setw(3) << age() << " |";
    }
 
+   //check if id is integer
    bool Employee::isInteger(std::string& str) const{
       bool res = true;
       for (size_t i = 0u; i < str.size() && res; i++) {
@@ -85,6 +97,7 @@ namespace sdds {
       return res;
    }
 
+   //remove all leading space 
    std::string Employee::removeSpace(const std::string& str){
       size_t first = str.find_first_not_of(' ');
       if (std::string::npos == first) {

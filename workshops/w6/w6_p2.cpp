@@ -5,9 +5,6 @@
 #include "Utilities.h"
 #include "College.h"
 #include "College.h"
-#include "Student.h"
-#include "Professor.h"
-
 void loadData(const char* filename, sdds::College& theCollege)
 {
 	std::ifstream file(filename);
@@ -51,7 +48,8 @@ int main(int argc, char** argv)
 		// TODO: Create a lambda expression that receives as parameter `const sdds::Person*`
 		//         and returns true if the person is student.
 		auto students = [](const sdds::Person* person) {
-			return typeid(*person) == typeid(sdds::Student);
+			//return typeid(*person) == typeid(sdds::Student);
+			{return person->status() == "Student"; };
 		};
 
 		theCollege.select(students, persons);
@@ -71,7 +69,8 @@ int main(int argc, char** argv)
 		// TODO: Create a lambda expression that receives as parameter `const sdds::Person*`
 		//         and returns true if the person is professor.
 		auto professors = [](const sdds::Person* person) {
-			return typeid(*person) == typeid(sdds::Professor);
+			//return typeid(*person) == typeid(sdds::Professor);
+			{return person->status() == "Professor"; };
 		};
 		theCollege.select(professors, persons);
 
