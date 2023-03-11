@@ -30,6 +30,7 @@ namespace sdds {
       m_name = removeSpace(m_name);
 
       //read age
+<<<<<<< HEAD
          getline(istr, m_age, ',');
          m_age = removeSpace(m_age);
          //check if it is integer, if not throw message
@@ -38,12 +39,26 @@ namespace sdds {
          }
      
       // read Employee id  
+=======
+      getline(istr, m_age, ',');
+      m_age = removeSpace(m_age);
+      //check if it is integer, if not throw message
+      if (!isInteger(m_age)) {
+         throw std::invalid_argument(m_name + "++Invalid record!");
+      }
+
+      // read Employee id
+>>>>>>> d554acd97bb1b4d248ad347749844cdd1207b7f1
          getline(istr, m_id, ',');
          m_id = removeSpace(m_id);
          //check validation with letter E 
          if (m_id.empty() || m_id[0]!= 'E') {
             throw std::invalid_argument(m_name + "++Invalid record!");
       }
+<<<<<<< HEAD
+=======
+     
+>>>>>>> d554acd97bb1b4d248ad347749844cdd1207b7f1
 }
 
    //returns the string Employee
@@ -69,9 +84,15 @@ namespace sdds {
    //print Employee recod in format
    void Employee::display(std::ostream& out) const{
       out << "| " << std::left << std::setw(10) << Employee::status()
+<<<<<<< HEAD
          << "| " << std::left << std::setw(10) << id()
          << "| " << std::left << std::setw(20) << name()
          << " | " << std::left << std::setw(3) << age() << " |";
+=======
+         << " | " << std::left << std::setw(10) << id()
+         << " | " << std::left << std::setw(20) << name()
+         << " | " << std::right << std::setw(3) << age() << " |";
+>>>>>>> d554acd97bb1b4d248ad347749844cdd1207b7f1
    }
 
    //check if id is integer

@@ -30,6 +30,7 @@ namespace sdds {
       m_name = removeSpace(m_name);
 
       //get age
+<<<<<<< HEAD
       getline(istr, m_age, ',');
       m_age = removeSpace(m_age);
       if (!isInteger(m_age)) {
@@ -42,6 +43,20 @@ namespace sdds {
       // code that might throw an exception
       if (m_id.empty() || m_id[0] != 'S') {
          throw std::invalid_argument(m_name + "++Invalid record!");
+=======
+         getline(istr, m_age, ',');
+         m_age = removeSpace(m_age);
+         if (!isInteger(m_age)) {
+            throw std::invalid_argument(m_name + "++Invalid record!");
+      }
+
+      // get id
+         getline(istr, m_id, ',');
+         m_id = removeSpace(m_id);
+         // code that might throw an exception
+         if (m_id.empty() || m_id[0] != 'S') {
+            throw std::invalid_argument(m_name + "++Invalid record!");
+>>>>>>> d554acd97bb1b4d248ad347749844cdd1207b7f1
       }
 
       //number of course
