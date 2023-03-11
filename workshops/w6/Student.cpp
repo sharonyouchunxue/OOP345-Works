@@ -5,7 +5,7 @@ Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-04
+Date       : 2023-03-11
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -22,57 +22,51 @@ complete my workshops and assignments.
 namespace sdds {
    Student::Student(){}
 
-   Student::Student(std::istream& istr){
+   Student::Student(std::istream& istr) {
       // get name
       getline(istr, m_name, ',');
       m_name = removeSpace(m_name);
 
       //get age
-      try {
-         getline(istr, m_age, ',');
-         m_age = removeSpace(m_age);
-         if (!isInteger(m_age)) {
-            throw std::invalid_argument(m_name + "++Invalid record!");
-         }
-      }
-      catch (const std::invalid_argument& e) {
-         // handle the exception here
-         std::cerr << "Exception caught: " << e.what() << std::endl;
+      getline(istr, m_age, ',');
+      m_age = removeSpace(m_age);
+      if (!isInteger(m_age)) {
+         throw std::invalid_argument(m_name + "++Invalid record!");
       }
 
       // get id
-      try {
-         getline(istr, m_id, ',');
-         m_id = removeSpace(m_id);
-         // code that might throw an exception
-         if (m_id.empty() || m_id[0] != 'S') {
-            throw std::invalid_argument(m_name + "++Invalid record!");
-         }
-      }
-      catch (const std::invalid_argument& e) {
-         // handle the exception here
-         std::cerr << "Exception caught: " << e.what() << std::endl;
+      getline(istr, m_id, ',');
+      m_id = removeSpace(m_id);
+      // code that might throw an exception
+      if (m_id.empty() || m_id[0] != 'S') {
+         throw std::invalid_argument(m_name + "++Invalid record!");
       }
 
       //number of course
       std::string num_course, course_list;
-      getline(istr, num_course, ',');
+      getline(istr, num_course,',');
       std::stringstream ss;
-      ss << m_age << ' ' << num_course;
-   
+      ss << num_course;
       ss >> m_count;
       if (ss.fail() || m_count < 0) {
          throw m_name + " ++Invalid record!";
       }
 
-      // allocate memory for courses array and parse course list
-      m_courses = new std::string[m_count];
-      std::stringstream course_ss(course_list);
-      for (int i = 0; i < m_count; ++i) {         
-         std::getline(istr, m_courses[i]);
-         m_courses[i] = removeSpace( m_courses[i]);
+      // check if line has ended and remove any extra commas
+      std::getline(istr, course_list);
+      course_list = removeSpace(course_list);
+
+      // allocate memory for courses array and parse course list   
+      if (m_count != 0) {
+         std::stringstream course_ss(course_list);
+         m_courses = new std::string[m_count];
+         for (size_t i = 0; i < m_count; ++i) {
+            std::getline(course_ss, m_courses[i],',');
+            if (!course_list.empty()) {
+               m_courses[i] = removeSpace(m_courses[i]);
+            }
+         }
       }
- 
    }
 
    //returns the word Student
@@ -98,11 +92,14 @@ namespace sdds {
    //print the student record in format
    void Student::display(std::ostream& out) const{     
       out << "| " << std::left << std::setw(10) << status()
-         << " | " << std::left << std::setw(10) << id()
-         << " | " << std::left << std::setw(20) << name()
-         << " | " << std::right << std::setw(3) << age() << " | ";
-      for (int i = 0; i < m_count; i++) {
+         << "| " << std::left << std::setw(10) << id()
+         << "| " << std::left << std::setw(20) << name()
+         << " |" << std::right << std::setw(3) << age() << "  |";
+      for (size_t i = 0; i < m_count; i++) {
          out << std::right << m_courses[i];
+         if (i < m_count - 1) {
+            out << ", ";
+         }
       }     
    }
 

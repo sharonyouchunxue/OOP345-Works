@@ -5,7 +5,7 @@ Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-04
+Date       : 2023-03-11
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -21,7 +21,7 @@ complete my workshops and assignments.
 
 namespace sdds {
    //To handle all the tags for different module
-   Person* sdds::buildInstance(std::istream& in) {
+   Person* buildInstance(std::istream& in){
       Person* ps = nullptr;
 
       std::string str = "";
@@ -42,11 +42,11 @@ namespace sdds {
          case 'P':
             return new Professor(ss);
             break;
-   
+
          case 's':
          case 'S':
             return new Student(ss);
-            break;  
+            break;
          }
       }
       return ps;

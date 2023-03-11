@@ -5,7 +5,7 @@ Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-04
+Date       : 2023-03-11
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -30,32 +30,20 @@ namespace sdds {
       m_name = removeSpace(m_name);
 
       //read age
-      try {
          getline(istr, m_age, ',');
          m_age = removeSpace(m_age);
          //check if it is integer, if not throw message
          if (!isInteger(m_age)) {
             throw std::invalid_argument(m_name + "++Invalid record!");
          }
-      }
-      catch (const std::invalid_argument& e) {
-         // handle the exception here
-         std::cerr << "Exception caught: " << e.what() << std::endl;
-      }
      
       // read Employee id  
-      try {
          getline(istr, m_id, ',');
          m_id = removeSpace(m_id);
          //check validation with letter E 
          if (m_id.empty() || m_id[0]!= 'E') {
             throw std::invalid_argument(m_name + "++Invalid record!");
-         }
       }
-      catch (const std::invalid_argument& e) {
-         // handle the exception here
-         std::cerr << "Exception caught: " << e.what() << std::endl;
-       }
 }
 
    //returns the string Employee
@@ -80,10 +68,10 @@ namespace sdds {
 
    //print Employee recod in format
    void Employee::display(std::ostream& out) const{
-      out << "| " << std::left << std::setw(10) << status()
-         << " | " << std::left << std::setw(10) << id()
-         << " | " << std::left << std::setw(20) << name()
-         << " | " << std::right << std::setw(3) << age() << " |";
+      out << "| " << std::left << std::setw(10) << Employee::status()
+         << "| " << std::left << std::setw(10) << id()
+         << "| " << std::left << std::setw(20) << name()
+         << " | " << std::left << std::setw(3) << age() << " |";
    }
 
    //check if id is integer
