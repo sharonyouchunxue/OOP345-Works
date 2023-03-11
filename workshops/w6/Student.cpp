@@ -20,8 +20,10 @@ complete my workshops and assignments.
 #include <sstream>
 #include "Student.h"
 namespace sdds {
+   //default constructor
    Student::Student(){}
 
+   //read record
    Student::Student(std::istream& istr) {
       // get name
       getline(istr, m_name, ',');
