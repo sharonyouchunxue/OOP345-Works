@@ -18,7 +18,7 @@ complete my workshops and assignments.
 #include "Person.h"
 namespace sdds {
    // inherits the abstract class Person
-   class Student : public Person{
+   class Student : public Person {
       std::string m_name{};
       std::string m_age{};
       std::string m_id{};

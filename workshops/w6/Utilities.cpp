@@ -21,7 +21,7 @@ complete my workshops and assignments.
 
 namespace sdds {
    //To handle all the tags for different module
-   Person* buildInstance(std::istream& in){
+   Person* buildInstance(std::istream& in) {
       Person* ps = nullptr;
 
       std::string str = "";

@@ -5,7 +5,7 @@ Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-01
+Date       : 2023-03-11
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -20,7 +20,7 @@ complete my workshops and assignments.
 
 namespace sdds {
    //inherits the abstract class Person
-   class Employee : public Person{
+   class Employee : public Person {
       std::string m_name{};
       std::string m_id{};
       std::string m_age{};

@@ -5,7 +5,7 @@ Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-11
+Date       : 2023-03-04
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -31,7 +31,7 @@ namespace sdds {
       College& operator=(const College&) = delete;
       College& operator +=(Person* thePerson);
       void display(std::ostream& out) const;
-      
+
       template<typename T>
       // template function that iterates over the persons stored in the m_persons, 
       //and adds to the second parameter all persons for which the test is true.

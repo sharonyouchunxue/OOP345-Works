@@ -136,7 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="college.txt" />
-    <Text Include="college_clean.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="College.h" />

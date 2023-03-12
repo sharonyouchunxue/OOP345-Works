@@ -21,7 +21,7 @@ complete my workshops and assignments.
 #include "Student.h"
 namespace sdds {
    //default constructor
-   Student::Student(){}
+   Student::Student() {}
 
    //read record
    Student::Student(std::istream& istr) {
@@ -30,7 +30,6 @@ namespace sdds {
       m_name = removeSpace(m_name);
 
       //get age
-<<<<<<< HEAD
       getline(istr, m_age, ',');
       m_age = removeSpace(m_age);
       if (!isInteger(m_age)) {
@@ -43,25 +42,11 @@ namespace sdds {
       // code that might throw an exception
       if (m_id.empty() || m_id[0] != 'S') {
          throw std::invalid_argument(m_name + "++Invalid record!");
-=======
-         getline(istr, m_age, ',');
-         m_age = removeSpace(m_age);
-         if (!isInteger(m_age)) {
-            throw std::invalid_argument(m_name + "++Invalid record!");
-      }
-
-      // get id
-         getline(istr, m_id, ',');
-         m_id = removeSpace(m_id);
-         // code that might throw an exception
-         if (m_id.empty() || m_id[0] != 'S') {
-            throw std::invalid_argument(m_name + "++Invalid record!");
->>>>>>> d554acd97bb1b4d248ad347749844cdd1207b7f1
       }
 
       //number of course
       std::string num_course, course_list;
-      getline(istr, num_course,',');
+      getline(istr, num_course, ',');
       std::stringstream ss;
       ss << num_course;
       ss >> m_count;
@@ -78,7 +63,7 @@ namespace sdds {
          std::stringstream course_ss(course_list);
          m_courses = new std::string[m_count];
          for (size_t i = 0; i < m_count; ++i) {
-            std::getline(course_ss, m_courses[i],',');
+            std::getline(course_ss, m_courses[i], ',');
             if (!course_list.empty()) {
                m_courses[i] = removeSpace(m_courses[i]);
             }
@@ -87,27 +72,27 @@ namespace sdds {
    }
 
    //returns the word Student
-   std::string Student::status() const{
+   std::string Student::status() const {
       return std::string("Student");
    }
 
    //return name of the student
-   std::string Student::name() const{
+   std::string Student::name() const {
       return m_name;
    }
 
    //return student age
-   std::string Student::age() const{
+   std::string Student::age() const {
       return m_age;
    }
 
    //return id
-   std::string Student::id() const{
+   std::string Student::id() const {
       return m_id;
    }
 
    //print the student record in format
-   void Student::display(std::ostream& out) const{     
+   void Student::display(std::ostream& out) const {
       out << "| " << std::left << std::setw(10) << status()
          << "| " << std::left << std::setw(10) << id()
          << "| " << std::left << std::setw(20) << name()
@@ -117,11 +102,11 @@ namespace sdds {
          if (i < m_count - 1) {
             out << ", ";
          }
-      }     
+      }
    }
 
    //destructor
-   Student::~Student(){
+   Student::~Student() {
       delete[] m_courses;
    }
 

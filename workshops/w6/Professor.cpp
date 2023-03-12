@@ -20,9 +20,9 @@ complete my workshops and assignments.
 namespace sdds {
    // calls the constructor from Employee to build the sub-object, 
    //and then it extracts the last field from the stream containing the department
-   Professor::Professor(std::istream& in):Employee(in){
+   Professor::Professor(std::istream& in) :Employee(in) {
       getline(in, m_department, ',');
-      m_department= removeSpace(m_department);
+      m_department = removeSpace(m_department);
    }
 
    void Professor::display(std::ostream& out)const {
@@ -32,12 +32,12 @@ namespace sdds {
    }
 
    // returns word Professor
-   std::string Professor::status() const{
+   std::string Professor::status() const {
       return std::string("Professor");
    }
 
    //returns the department
-   std::string Professor::department() const{
+   std::string Professor::department() const {
       return m_department;
    }
 }

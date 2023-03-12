@@ -1,53 +1,47 @@
-Reflection â€“ Workshop Six - STL Containers
-In workshop five, the primary topics I walked through were standard library and containers,
-iterators. C++ standard library is a collection of classes and functions that are written in the core
-language and part of the C++ ISO standard itself. The C++ containers is and object used to store
-collections of other objects. Iterators are and efficient methods to traverse the elements of any
-type of container such as: Vectors, Deques, Lists, etc, which I practiced in workshop 6.
+Reflection – Workshop Six - STL Containers
+In workshop six, the primary topics I worked through were standard library, containers, and iterators. C++ standard library is a 
+collection of classes and functions that are written in the core language and part of the C++ ISO standard itself. The C++ container 
+is an object used to store collections of other objects. Iterators are an efficient method to traverse the elements of any type
+of container such as: Vectors, Deques and Lists. I practiced these in workshop 6.
+
 1. Why do you need to deallocate the dynamically allocated memory in your vector?
-In College module, I created a vector that store all the persons present at this college so
-that all these Person objects will be dynamically allocated. After we allocated memory
-dynamically we need to free the memory otherwise will cause memory leak.
-My code example is showing below:
-std::vector&lt;Person*&gt; m_persons;
-College&amp; operator +=(Person* thePerson);
-College&amp; sdds::College::operator+=(Person* thePerson) {
-m_persons.push_back(thePerson);
-return *this;
-}
-sdds::College::~College(){
-for (size_t i = 0u; i &lt; m_persons.size(); i++) {
-delete m_persons[i];
-m_persons[i] = nullptr;
-}
-}
-2. When building an object from the input file, different things can go wrong: the record
-represents an unknown type of person, or record contains invalid data. How can the
-function loadData() detect what went wrong? Can you think at another solution than the
-one you have implemented?
-To detect and errors we can use exception handling that we learned from previous
-workshop. I added a try and catch block to handle this in loadData() function. Using
-ifstream to open file. If file opened successfully, we use a try block, the person object to
-check validation, if it valid add the person to the college object. Then in a catch block,
-using std::invalid_argument, indicating that there was an error while extracting data from
-the file. Therefore, the code is wrapped in a try-catch block to handle these exceptions. If
-an exception is caught, the error message is printed to the standard error stream.
-Another solution to detect what went wrong while building an object from the input file
-could be to define custom exception classes that inherit from the std::exception class,
-such as UnknownPersonTypeException or InvalidDataException, and throw them when
-the corresponding error occurs.
+   In College module, I created a vector that stored all the persons present at this college, and all these Person objects will be 
+   dynamically allocated. After I allocated memory dynamically, I then needed to free the memory otherwise will cause memory leak.
+   My code example is showing below:
+           std::vector&lt;Person*&gt; m_persons;
+           College& operator +=(Person* thePerson);
+              College& sdds::College::operator+=(Person* thePerson) {
+              m_persons.push_back(thePerson);
+              return *this;
+              }
+            sdds::College::~College(){
+                 for (size_t i = 0u; i &lt; m_persons.size(); i++) {
+                     delete m_persons[i];
+                      m_persons[i] = nullptr;
+                      }
+                    }
 
-3. In this workshop you had to use std::list&lt;sdds::Person*&gt; and std::vector&lt;sdds::Person*&gt;
-to store a collection of persons as pointers. Could you have used std::list&lt;sdds::Person&gt;
-and std::vector&lt;sdds::Person&gt; instead?
+2. When building an object from the input file, different things can go wrong: the record represents an unknown type of person, or 
+   record contains invalid data. How can the function loadData() detect what went wrong? Can you think at another solution than 
+   the one you have implemented?
 
-Yes, we could use std::list&lt;sdds::Person&gt; instead of vector to store a collection of Person
-objects directly, without using pointers. For example:
-std::list&lt;sdds::Person&gt; m_persons;
-College&amp; operator+=(const sdds::Person&amp; thePerson) {
-m_persons.push_back(thePerson);
-return *this;
-}
-Depending one different requirement, using vector to storing pointers allows for more
-flexibility in managing the lifetime of the objects, whereas storing objects directly can
-simplify memory management and reduce the risk of memory leaks or dangling pointers.
+   To detect errors I can use exception handling that I learned from a previous workshop. I added a try and catch block to handle 
+   this in loadData() function. I used ifstream to try to open the file. If the file opened successfully, I can use a try block. 
+   Inside of the try block, I can validate the person object and add the person to the object. I can use a catch block to find 
+   invalid arguments by using std::invalid_argument, which will indicate if there was an error while extracting data from the file. 
+   Employing a try-catch block to handle these exceptions will allow for an error message to be printed to the error stream. Another 
+   solution to detect errors while building an object from the input file is to define custom exception classes that inherit from 
+   the std::exception class, such as UnknownTypeException or InvalidDataException. We can then throw them when the corresponding 
+   error occurs.
+
+3. In this workshop you had to use std::list<sdds::Person*> and std::vector<sdds::Person*> to store a collection of persons as 
+   pointers. Could you have used std::list<sdds::Person> and std::vector<sdds::Person> instead?
+   Yes, we could use std::list<sdds::Person> instead of vector to store a collection of Person objects directly, without using 
+   pointers. For example:
+                 std::list<sdds::Person> m_persons;
+                 College& operator+=(const sdds::Person& thePerson) {
+                      m_persons.push_back(thePerson);
+                      return *this;
+                    }
+  Depending on different requirements, using a vector to store pointers allows for more flexibility in managing the lifetime of the 
+  objects, whereas storing objects directly can simplify memory management and reduce the risk of memory leaks or dangling pointers.

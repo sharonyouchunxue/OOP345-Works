@@ -5,7 +5,7 @@ Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-11
+Date       : 2023-03-04
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -19,7 +19,7 @@ complete my workshops and assignments.
 #include "College.h"
 namespace sdds {
    //default constructor
-   College::College(){}
+   College::College() {}
 
    //adds the address of the person object received as parameter into the m_persons vector.
    College& sdds::College::operator+=(Person* thePerson) {
@@ -27,7 +27,7 @@ namespace sdds {
       return *this;
    }
 
-   void sdds::College::display(std::ostream& out) const{
+   void sdds::College::display(std::ostream& out) const {
       out << "------------------------------------------------------------------------------------------------------------------------" << std::endl;
       out << "|                                        Test #1 Persons in the college!                                               |" << std::endl;
       out << "------------------------------------------------------------------------------------------------------------------------" << std::endl;
@@ -50,7 +50,7 @@ namespace sdds {
    }
 
    //destructor
-   sdds::College::~College(){
+   sdds::College::~College() {
       for (size_t i = 0u; i < m_persons.size(); i++) {
          delete m_persons[i];
          m_persons[i] = nullptr;
