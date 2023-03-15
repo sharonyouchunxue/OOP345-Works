@@ -29,7 +29,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\..\Downloads\OOP-Project-main(2)\OOP-Project-main\release\MS2\CustomerOrders.txt" />
+    <Text Include="CustomerOrders.txt" />
+    <Text Include="Stations1.txt" />
+    <Text Include="Stations2.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CustomerOrder.h">
