@@ -18,6 +18,7 @@ complete my workshops and assignments.
 #include <string>
 #include <fstream>
 #include <algorithm>
+#include <numeric>
 #include "Bakery.h"
 
 namespace sdds {
