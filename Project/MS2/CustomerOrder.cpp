@@ -46,8 +46,6 @@ namespace sdds {
          for (size_t i = 0u; i < m_cntItem; ++i) {
             m_lstItem[i] = std::move(items[i]);
          }
-        
-
          m_widthField = m_widthField > util.getFieldWidth() ? m_widthField : util.getFieldWidth();
       }
    }

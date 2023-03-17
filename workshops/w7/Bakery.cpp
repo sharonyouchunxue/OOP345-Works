@@ -24,42 +24,52 @@ namespace sdds {
 
    Bakery::Bakery(const char* filename){
       std::ifstream fin(filename);
-      BakedGood bakedgood;
       std::string line;
       if (!fin) {
          throw std::invalid_argument("filename is invalid");
       }
       else {
-         //baked type
          while (std::getline(fin, line)) {
-            std::string bakeType = line.substr(0, 8);        
-            bakedgood.m_bakeType = (bakeType == "BREAD") ? BakedType::BREAD : BakedType::PASTERY;
+            BakedGood bakedgood;
+            //baked type
+            //extracts the first 8 characters from the line string and stores them in a new string 
+            //variable named bakeType
+            std::string bakeType = line.substr(0, 8); 
+               if (bakeType == "Bread") {
+                  bakedgood.m_bakeType = BakedType::BREAD;
+               }
+               else if (bakeType == "Pastry") {
+                  bakedgood.m_bakeType = BakedType::PASTERY;
+               }          
             removeSpace(bakeType);
 
             //description
+            //extract the character from position 8 to 28(lenth of 20)
             std::string description = line.substr(8, 20);
             bakedgood.m_description = description;
             removeSpace(description);
 
             //shelflife
+            //extract the character from position 28 to 42(lenth of 14)
             std::string shelfLife = line.substr(28, 14);
             removeSpace(shelfLife);
             bakedgood.m_shelfLife = std::stoi(shelfLife);
 
             //stock
+            //extract the character from position 42 to 50(lenth of 8)
             std::string stock = line.substr(42, 8);
             removeSpace(stock);
             bakedgood.m_noOfstock = std::stoi(stock);
 
             //price
+            //extract the character from position 50 to 56(lenth of 6)
             std::string price = line.substr(50, 6);
             removeSpace(price);
             bakedgood.m_price = std::stod(price);
 
-            m_goods.push_back(bakedgood);
-
+            m_goods.push_back(bakedgood);                   
          }
-      }    
+      }
    }
 
    //print the content of the collection into the parameter
@@ -75,6 +85,7 @@ namespace sdds {
       os << "Total Price: " << totalPrice << std::endl;
    }
 
+   //sort bakery in different 
    void Bakery::sortBakery(std::string str){
       if (str == "Description") {
          std::sort(m_goods.begin(), m_goods.end(), [](BakedGood& good, BakedGood& anotherGood) {
@@ -99,7 +110,6 @@ namespace sdds {
       else {
          throw std::invalid_argument(" invalid str");
       }
-
    }
 
    //receives a parameter of another Bakery object reference and combines the collection 
@@ -144,12 +154,12 @@ namespace sdds {
    //inserts one BakedGood into the first parameter in formating
    std::ostream& operator<<(std::ostream& out, const BakedGood& b) {
       std::string bakeType;
-      if (b.m_bakeType == BakedType::BREAD) {
-         bakeType = "Bread";
-      }
-      else {
-         bakeType = "Pastry";
-      }
+         if (b.m_bakeType == BakedType::BREAD) {
+            bakeType = "Bread";
+         }
+         else {
+            bakeType = "Pastry";
+         } 
       out << "* " << std::left << std::setw(10) << bakeType
          << " * " << std::left << std::setw(20) << b.m_description
          << " * " << std::left << std::setw(6) << b.m_shelfLife
