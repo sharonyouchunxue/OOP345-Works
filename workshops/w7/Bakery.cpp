@@ -74,39 +74,48 @@ namespace sdds {
 
    //print the content of the collection into the parameter
    void Bakery::showGoods(std::ostream& os) const {
-      int totalStock = 0;
-      double totalPrice = 0.0;
-      for (const auto& bakegood : m_goods) {
-         os << bakegood << std::endl; 
-         totalStock += bakegood.m_noOfstock;
-         totalPrice += bakegood.m_price;
-      }
+      std::for_each(m_goods.begin(), m_goods.end(), [&](const BakedGood& bakedgood) {
+           os << bakedgood << std::endl;
+           });
+       //to sum up all of the stock
+       int totalStock = std::accumulate(m_goods.begin(), m_goods.end(), 0, [](int curr_stock, const BakedGood& bakedgood) {
+           return curr_stock + bakedgood.m_noOfstock;
+           });
+       //to sum up all of the price
+       double totalPrice = std::accumulate(m_goods.begin(), m_goods.end(), 0.0, [](double curr_price, const BakedGood& bakedgood) {
+           return curr_price + bakedgood.m_price;
+           });
       os << "Total Stock: " << totalStock <<std::endl;
       os << "Total Price: " << totalPrice << std::endl;
    }
 
-   //sort bakery in different 
+   //sort bakery in different category
    void Bakery::sortBakery(std::string str){
-      if (str == "Description") {
+       if (str == "Description") {
+          //sort by description in acending order
          std::sort(m_goods.begin(), m_goods.end(), [](BakedGood& good, BakedGood& anotherGood) {
             return good.m_description < anotherGood.m_description;
             });
       }
+           //sort by stock in acending order
       else if (str == "Stock") {
          std::sort(m_goods.begin(), m_goods.end(), [](const BakedGood& a, const BakedGood& b) {
             return a.m_noOfstock < b.m_noOfstock;
             });
       }
+           //sort by shelf in acending order
       else if (str == "Shelf") {
          std::sort(m_goods.begin(), m_goods.end(), [](BakedGood& good, BakedGood& anotherGood) {
             return good.m_shelfLife < anotherGood.m_shelfLife;
             });
       }
+           //sort by price in acending order
       else if (str == "Price") {
          std::sort(m_goods.begin(), m_goods.end(), [](BakedGood& good, BakedGood& anotherGood) {
             return good.m_price < anotherGood.m_price;
             });
       }
+          //throw invalid argument
       else {
          throw std::invalid_argument(" invalid str");
       }
