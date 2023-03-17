@@ -37,11 +37,13 @@ namespace sdds {
             std::string bakeType = line.substr(0, 8); 
                if (bakeType == "Bread") {
                   bakedgood.m_bakeType = BakedType::BREAD;
+                  removeSpace(bakeType);
                }
                else if (bakeType == "Pastry") {
                   bakedgood.m_bakeType = BakedType::PASTERY;
+                  removeSpace(bakeType);
                }          
-            removeSpace(bakeType);
+            
 
             //description
             //extract the character from position 8 to 28(lenth of 20)
