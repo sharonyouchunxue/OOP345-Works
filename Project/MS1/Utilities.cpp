@@ -15,6 +15,7 @@ complete my workshops and assignments.
 */
 #include <iostream>
 #include "Utilities.h"
+
 namespace sdds {
 
    char Utilities::m_delimiter = ' ';

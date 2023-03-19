@@ -15,6 +15,7 @@ complete my workshops and assignments.
 */
 #ifndef SDDS_UTILITIES_H
 #define SDDS_UTILITIES_H
+
 namespace sdds {
    class Utilities {
       // length of the token extracted;

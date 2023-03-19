@@ -18,7 +18,6 @@ complete my workshops and assignments.
 #include <string>
 #include "Station.h"
 
-
 namespace sdds {
    size_t Station::m_widthField = 0u;
    size_t Station::id_generator = 0u;
