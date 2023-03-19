@@ -1,5 +1,4 @@
 // w7_p2.cpp
-
 #include <iostream>
 #include <iomanip>
 #include "Bakery.h"

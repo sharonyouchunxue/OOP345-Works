@@ -43,8 +43,7 @@ namespace sdds {
       void removeSpace(std::string& str);
    };
    std::ostream& operator<<(std::ostream& out, const BakedGood& b);
-   
-
+  
 }
 #endif // !SDDS_BAKERY_H
 

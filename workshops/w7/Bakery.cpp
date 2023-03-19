@@ -178,13 +178,6 @@ namespace sdds {
       return out;
    }
 
-
-  
-
-
-
-
-
 }
 
 
