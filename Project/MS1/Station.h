@@ -21,10 +21,10 @@ namespace sdds {
    class Station {
       //Instance Variables
       int m_id{ 0 };
-      std::string m_name{};
-      std::string m_description{};
+      std::string m_name{""};
+      std::string m_description{""};
       size_t m_nextSerialNumber{ 0u };//the next serial number to be assigned to an item at this station 
-      size_t m_noOfCurr{ 0 };//the number of items currently in stock
+      size_t m_noOfCurr{ 0u };//the number of items currently in stock
 
       //Class Variables
       static size_t m_widthField;
@@ -39,3 +39,4 @@ namespace sdds {
    };
 }
 #endif // !SDDS_STATION_H
+

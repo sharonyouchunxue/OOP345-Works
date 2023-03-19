@@ -38,7 +38,6 @@ namespace sdds {
          Station::m_widthField = std::max(util.getFieldWidth(), Station::m_widthField);
          //update m_widthField
          m_description = util.extractToken(src, pos, more);
-
    }
 
    //returns the name of the current Station object
@@ -65,16 +64,14 @@ namespace sdds {
    }
 
    void Station::display(std::ostream& os, bool full) const {
-      os << std::right << std::setw(3) << std::setfill('0') << m_id << " | ";
-      os << std::left << std::setw(Station::m_widthField) << std::setfill(' ')<< m_name
-         << " | " << std::right << std::setw(6) << std::setfill('0') << m_nextSerialNumber << " | ";
-
-      if (full) {
-         os << std::right << std::setw(4) << std::setfill(' ') << m_noOfCurr << "| ";
-         os << std::left << m_description << std::endl;
+      os << std::setw(3) << std::right << std::setfill('0') << m_id << " | "
+         << std::setw(m_widthField) << std::left << std::setfill(' ') << m_name << "  | "
+         << std::setw(6) << std::right << std::setfill('0') << m_nextSerialNumber << " | ";
+      if (full)
+      {
+         os << std::setw(4) << std::right << std::setfill(' ') << m_noOfCurr
+            << " | " << std::left << m_description;
       }
-      else
-         os << std::endl;
+      os << std::endl;
    }
 }
-

@@ -1,0 +1,53 @@
+Reflection – Workshop 7 - STL Algorithms
+
+1. list all the STL functions that you have used in this workshop; explain your reasoning for choosing each one, and not another.
+
+   There are several STL functions that I used in this workshop. First, I used std::vector(std::vector<BakedGood> m_goods;) 
+   to store a collection of BakedGood objects in the Bakery class. The reason is to enable me to use dynamic array in an
+   efficient way to access arrays and resize it as needed.
+
+   Second, in my “show goods” function I used “for_each” algorithm to display all the elements in the array, and I used the 
+   “accumulate” algorithm to calculate the total price and total stock for the collection.
+
+   Third, in my sortBakery function I used the multiple sort algorithm to sort the bakery goods based on different categories, such 
+   as description, shelf life, stock and price etc.
+
+   Fourth, in my combined function I used std::vector to to store merged new size, Then I called sortBakeryfunction for the string 
+   Price. After lists were sorted, I used a merge algorithm function to merge two sorted collections together as a single list, and 
+   also return lists were sorted in price.
+
+   Fifth, in my “out of stock” function I used copy_if algorithm to find the goods where the number of stock is equal to zero, so we 
+   can return the description of the goods that are out of stock. I ordered the list of out of stock items based on price.
+
+   Finally, for the last function of “in stock goods” I used the any_if algorithm to search all items where the stocks are greater 
+   than zero.
+
+2. present the advantages of using STL algorithms vs. implementing the functionality by yourself using loops.
+
+   There are some advantages to using STL algorithms other than regular functionality using loops. Using STL algorithms can be more 
+   efficient. For example, the sortBakery function for sorting by description in my workshop, if I implement by writing my own code, 
+   the function may look like the below:
+                 // sort by description
+                  for (int i = 0; i &lt; m_goods.size() - 1; i++) {
+                      for (int j = i + 1; j &lt; m_goods.size(); j++) {
+                         if (m_goods[j].m_description &lt; m_goods[i].m_description) {
+                               std::swap(m_goods[i], m_goods[j]);
+                                                   }
+                                                }
+                                               }
+                                             }
+    However, with the sort algorithm function I can write the simple code shown below, which is much more efficient, maintainable 
+    and readable.
+              if (str == "Description") {
+                    std::sort(m_goods.begin(), m_goods.end(), [](BakedGood& good, BakedGood& anotherGood) {
+                         return good.m_description &lt; anotherGood.m_description;});
+                         }
+
+3. for the sortBakery function, would anything differ in how it is implemented if the choice of collection was either a vector or a 
+   list? If there is a difference what is it?
+
+   Yes, there will be difference between vector and list. std::sort algorithm requires random access to the elements in the 
+   collection, and it may be more efficient to use a vector instead of a list. If a list is used, we may have to modify the code 
+   without m_goods.begin(), m_goods.end() inside of sort function for each category. I found the greatest challenge for this 
+   workshop was implementing the combine function. It took me a long time to understand the concept and logic regarding using merge 
+   algorithm, but it was good practise in terms of learning different skills for a developer.

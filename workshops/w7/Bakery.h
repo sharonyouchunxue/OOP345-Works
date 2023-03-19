@@ -26,8 +26,8 @@ namespace sdds {
    struct BakedGood {
       BakedType m_bakeType{};
       std::string m_description{};
-      int m_shelfLife{};//in days
-      int m_noOfstock{};
+      size_t m_shelfLife{};//in days
+      size_t m_noOfstock{};
       double m_price{};
    };
 
@@ -36,8 +36,8 @@ namespace sdds {
    public:
       Bakery(const char* filename);
       void showGoods(std::ostream& os) const;
-      void sortBakery(std::string str);
-      std::vector<BakedGood> combine(const Bakery& other)const;
+      void sortBakery(const std::string str);
+      std::vector<BakedGood> combine(const Bakery& other);
       bool inStock(const std::string& description, BakedType type) const;
       std::list<BakedGood> outOfStock(BakedType t) const;
       void removeSpace(std::string& str);

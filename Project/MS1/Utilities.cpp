@@ -17,7 +17,7 @@ complete my workshops and assignments.
 #include "Utilities.h"
 namespace sdds {
 
-   char Utilities::m_delimiter = '\0';
+   char Utilities::m_delimiter = ' ';
 
    //sets the field width of the current object to the value of parameter newWidth
    void Utilities::setFieldWidth(size_t newWidth){
@@ -30,30 +30,53 @@ namespace sdds {
    }
 
    std::string Utilities::extractToken(const std::string& str, size_t& next_pos, bool& more){
-      //extracts a token from string str
-       std::string delimiter = "";
-       if (next_pos < str.length()) {
-          size_t delimiter_pos = str.find(m_delimiter, next_pos);
-          if (delimiter_pos != std::string::npos) {
-             delimiter = str.substr(next_pos, delimiter_pos - next_pos);
-             next_pos = delimiter_pos + 1;
-          }
-          else {
-             delimiter = str.substr(next_pos);
-             next_pos = str.length() + 1;
-          }
-          m_widthField = m_widthField > delimiter.length() ? m_widthField : delimiter.length();
-
-          if (delimiter.empty() && (next_pos != str.length() + 1)) {
-             more = false;
-             throw "no token";
-          }
-          more = next_pos <= str.length();
-       }       
-        return delimiter;     
+      if (str[next_pos] == getDelimiter())
+      {
+         more = false;
+         throw std::invalid_argument("No token!"); //throw an exception if a delimiter is found in the next position
+      }
+      size_t foundPos = 0;
+      foundPos = str.find(getDelimiter(), next_pos);
+      std::string tempString{};
+      if (foundPos < str.length())                   //extracts all the tokens except the last one
+      {
+         tempString = str.substr(next_pos, foundPos - next_pos);
+         removeSpaces(tempString);
+         next_pos = foundPos + 1;
+      }
+      else                                         //extracts the last token
+      {
+         tempString = str.substr(next_pos);
+         removeSpaces(tempString);
+         more = false;
+      }
+      if (m_widthField < tempString.length())
+      {
+         m_widthField = tempString.length();
+      }
+      return tempString;    
    }
 
-   //sets the delimiter for this class to the character received
+   void Utilities::removeSpaces(std::string& word)
+   {
+      bool spacesRemoved = false;
+      while (!spacesRemoved)
+      {
+         if (word[0] == ' ')
+         {
+            word = word.substr(1, word.length());
+         }
+         if (word[word.length() - 1] == ' ')
+         {
+            word = word.substr(0, (word.length() - 1));
+         }
+         if (word[0] != ' ' && word[word.length() - 1] != ' ')
+         {
+            spacesRemoved = true;
+         }
+      }
+   }
+
    void Utilities::setDelimiter(char newDelimiter){
       m_delimiter = newDelimiter;
    }
