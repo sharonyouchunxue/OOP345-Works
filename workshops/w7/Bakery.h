@@ -34,17 +34,18 @@ namespace sdds {
    class Bakery {
       std::vector<BakedGood> m_goods;
    public:
-
       Bakery(const char* filename);
       void showGoods(std::ostream& os) const;
       void sortBakery(std::string str);
-      std::vector<BakedGood> combine(const Bakery& other) const;
+      std::vector<BakedGood> combine(const Bakery& other)const;
       bool inStock(const std::string& description, BakedType type) const;
       std::list<BakedGood> outOfStock(BakedType t) const;
-      std::string removeSpace(std::string& str);
+      void removeSpace(std::string& str);
    };
    std::ostream& operator<<(std::ostream& out, const BakedGood& b);
    
 
 }
 #endif // !SDDS_BAKERY_H
+
+

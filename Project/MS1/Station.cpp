@@ -24,20 +24,21 @@ namespace sdds {
    size_t Station::id_generator = 0u;
 
    Station::Station(const std::string& src){
-      size_t next_pos = 0u;
-      bool more = true;
       Utilities util;
       m_id = ++Station::id_generator;
-      // extract name
-      m_name = util.extractToken(src, next_pos, more);
-      //extract starting serial number 
-      m_nextSerialNumber = std::stoi(util.extractToken(src, next_pos, more));
-      //extract quantity 
-      m_noOfCurr = std::stoi(util.extractToken(src, next_pos, more));
-      // extract description 
-      m_description = util.extractToken(src, next_pos, more);
-      //update m_widthField
-      m_widthField = std::max(m_widthField, util.getFieldWidth());
+      bool more = true;
+      size_t pos = 0u;
+         // extract name
+         m_name = util.extractToken(src, pos, more);
+         //extract starting serial number 
+         m_nextSerialNumber = stoi(util.extractToken(src, pos, more));
+         //extract quantity 
+         m_noOfCurr = stoi(util.extractToken(src, pos, more));
+         // extract description 
+         Station::m_widthField = std::max(util.getFieldWidth(), Station::m_widthField);
+         //update m_widthField
+         m_description = util.extractToken(src, pos, more);
+
    }
 
    //returns the name of the current Station object
@@ -65,16 +66,15 @@ namespace sdds {
 
    void Station::display(std::ostream& os, bool full) const {
       os << std::right << std::setw(3) << std::setfill('0') << m_id << " | ";
-      os << std::left << std::setw(Station::m_widthField) << std::setfill(' ') << m_name
-         << " | " << std::right << std::setw(6) << std::setfill('0') << m_nextSerialNumber << " |";
+      os << std::left << std::setw(Station::m_widthField) << std::setfill(' ')<< m_name
+         << " | " << std::right << std::setw(6) << std::setfill('0') << m_nextSerialNumber << " | ";
 
       if (full) {
-         os << std::right << std::setw(4) << std::setfill(' ') << m_noOfCurr << " | ";
-         os << std::left  << m_description << std::endl;
+         os << std::right << std::setw(4) << std::setfill(' ') << m_noOfCurr << "| ";
+         os << std::left << m_description << std::endl;
       }
       else
          os << std::endl;
    }
-
 }
 

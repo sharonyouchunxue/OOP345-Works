@@ -14,6 +14,7 @@ complete my workshops and assignments.
 *****************************************************************************
 */
 #include <iostream>
+#include <numeric>
 #include <iomanip>
 #include <string>
 #include <fstream>
@@ -21,7 +22,6 @@ complete my workshops and assignments.
 #include "Bakery.h"
 
 namespace sdds {
-
    Bakery::Bakery(const char* filename){
       std::ifstream fin(filename);
       std::string line;
@@ -34,20 +34,21 @@ namespace sdds {
             //baked type
             //extracts the first 8 characters from the line string and stores them in a new string 
             //variable named bakeType
-            std::string bakeType = line.substr(0, 8); 
-               if (bakeType == "Bread") {
-                  bakedgood.m_bakeType = BakedType::BREAD;
+            std::string bakeType = line.substr(0, 8);
+               if (bakeType[0] == 'B') {
+                  removeSpace(bakeType);
+                  bakedgood.m_bakeType = BakedType::BREAD;               
                }
-               else if (bakeType == "Pastry") {
-                  bakedgood.m_bakeType = BakedType::PASTERY;
-               }          
-            removeSpace(bakeType);
-
+               else if (bakeType[0] == 'P') {
+                  removeSpace(bakeType);
+                  bakedgood.m_bakeType = BakedType::PASTERY;                
+               }  
+            
             //description
             //extract the character from position 8 to 28(lenth of 20)
             std::string description = line.substr(8, 20);
-            bakedgood.m_description = description;
             removeSpace(description);
+            bakedgood.m_description = description;           
 
             //shelflife
             //extract the character from position 28 to 42(lenth of 14)
@@ -74,34 +75,39 @@ namespace sdds {
 
    //print the content of the collection into the parameter
    void Bakery::showGoods(std::ostream& os) const {
-      int totalStock = 0;
-      double totalPrice = 0.0;
-      for (const auto& bakegood : m_goods) {
-         os << bakegood << std::endl; 
-         totalStock += bakegood.m_noOfstock;
-         totalPrice += bakegood.m_price;
-      }
-      os << "Total Stock: " << totalStock <<std::endl;
+      std::for_each(m_goods.begin(), m_goods.end(), [&](const BakedGood& bakedgood) {
+         os << bakedgood << std::endl;
+         });
+      //to sum up all of the stock
+      int totalStock = std::accumulate(m_goods.begin(), m_goods.end(), 0, [](int curr_stock, const BakedGood& bakedgood) {
+         return curr_stock + bakedgood.m_noOfstock;
+         });
+      //to sum up all of the price
+      double totalPrice = std::accumulate(m_goods.begin(), m_goods.end(), 0.0, [](double curr_price, const BakedGood& bakedgood) {
+         return curr_price + bakedgood.m_price;
+         });
+      os << "Total Stock: " << totalStock << std::endl;
       os << "Total Price: " << totalPrice << std::endl;
    }
 
-   //sort bakery in different 
+   //sort bakery in different category
    void Bakery::sortBakery(std::string str){
       if (str == "Description") {
          std::sort(m_goods.begin(), m_goods.end(), [](BakedGood& good, BakedGood& anotherGood) {
             return good.m_description < anotherGood.m_description;
             });
       }
-      else if (str == "Stock") {
-         std::sort(m_goods.begin(), m_goods.end(), [](const BakedGood& a, const BakedGood& b) {
-            return a.m_noOfstock < b.m_noOfstock;
-            });
-      }
-      else if (str == "Shelf") {
+      else if (str == "Shelf"){
          std::sort(m_goods.begin(), m_goods.end(), [](BakedGood& good, BakedGood& anotherGood) {
             return good.m_shelfLife < anotherGood.m_shelfLife;
             });
       }
+      else if (str == "Stock") {
+         std::sort(m_goods.begin(), m_goods.end(), [](const BakedGood& good, const BakedGood& anotherGood) {
+            return good.m_noOfstock < anotherGood.m_noOfstock;
+            });
+      }
+    
       else if (str == "Price") {
          std::sort(m_goods.begin(), m_goods.end(), [](BakedGood& good, BakedGood& anotherGood) {
             return good.m_price < anotherGood.m_price;
@@ -116,19 +122,43 @@ namespace sdds {
    //of BakedGoods from the current object and the parameter and returns the combined collection. 
    //The combined collection should be ordered by price.
    std::vector<BakedGood> Bakery::combine(const Bakery& other) const {
-      std::vector<BakedGood> combined = m_goods;
-      combined.insert(combined.end(), other.m_goods.begin(), other.m_goods.end());
-      std::sort(combined.begin(), combined.end(), [](const BakedGood& a, const BakedGood& b) {
-         return a.m_price < b.m_price;
+      std::vector<BakedGood> combined;
+      //Creates a copy of the std::vector m_goods from the current instance of the Bakery class, 
+     //and sorts it by price using a lambda function
+      std::vector<BakedGood> collection_a = m_goods;//sort collection a 
+      std::sort(collection_a.begin(), collection_a.end(), [](const BakedGood& a, const BakedGood& b){
+            return a.m_price < b.m_price;
          });
+      std::vector<BakedGood> collection_b = other.m_goods; //sort collection b
+      std::sort(collection_b.begin(), collection_b.end(), [](const BakedGood& a, const BakedGood& b)
+         {
+            return a.m_price < b.m_price;
+         });
+      //resizes the combined collection to hold the total number of elements in both collection_a and collection_b
+      combined.resize(collection_a.size() + collection_b.size());
+      auto res = std::merge(
+         //use make_move_iterator to indicate that the elements should be moved instead of copied
+         std::make_move_iterator(collection_a.begin()),
+         std::make_move_iterator(collection_a.end()),
+         std::make_move_iterator(collection_b.begin()),
+         std::make_move_iterator(collection_b.end()),
+         combined.begin(),[](const BakedGood& a, const BakedGood& b){
+            return a.m_price < b.m_price;
+         }
+      );
+      //erases any elements in combined that come after the merged range.
+      combined.erase(res, combined.end());
       return combined;
    }
 
+   bool operator==(const BakedGood& a, const BakedGood& b) {
+      return a.m_description == a.m_description&& a.m_price == b.m_price;
+   }
    // receives the Description of a BakedGood and a BakedType as parameters, 
    //and returns true if the collection contains Stock of that BakedGood
    bool Bakery::inStock(const std::string& description, BakedType type) const {
       return std::any_of(m_goods.begin(), m_goods.end(), [&](const BakedGood& bakedGood) {
-         return bakedGood.m_description == description;
+         return bakedGood.m_description == description && bakedGood.m_bakeType == type && bakedGood.m_noOfstock > 0;
          });
    }
 
@@ -139,16 +169,20 @@ namespace sdds {
       std::copy_if(m_goods.begin(), m_goods.end(), std::back_inserter(outOfStockGoods), [&](const BakedGood& good) {
          return good.m_bakeType == t && good.m_noOfstock == 0;
          });
+      outOfStockGoods.sort([](const BakedGood& a, const BakedGood& b) {
+         return a.m_price < b.m_price;
+         });
       return outOfStockGoods;
    }
 
-   std::string Bakery::removeSpace(std::string& str){
-      size_t first = str.find_first_not_of(' ');
-      if (std::string::npos == first) {
-         return str;
-      }
-      size_t last = str.find_last_not_of(' ');
-      return str.substr(first, (last - first + 1));
+   void Bakery::removeSpace(std::string& str){
+      // Remove spaces from the beginning and end of the string
+      str.erase(str.begin(), std::find_if(str.begin(), str.end(), [](int ch) {
+         return !std::isspace(ch);
+         }));
+      str.erase(std::find_if(str.rbegin(), str.rend(), [](int ch) {
+         return !std::isspace(ch);
+         }).base(), str.end());
    }
 
    //inserts one BakedGood into the first parameter in formating
@@ -160,12 +194,30 @@ namespace sdds {
          else {
             bakeType = "Pastry";
          } 
-      out << "* " << std::left << std::setw(10) << bakeType
-         << " * " << std::left << std::setw(20) << b.m_description
-         << " * " << std::left << std::setw(6) << b.m_shelfLife
-         << " * " << std::left << std::setw(5) << b.m_noOfstock
-         << " * " << std::setw(8) << std::fixed << std::setprecision(2) << b.m_price << " *";
+         out << "* " << std::left << std::setw(10) << bakeType
+            << " * " << std::left << std::setw(20) << b.m_description
+            << " * " << std::left << std::setw(6) << b.m_shelfLife
+            << "* " << std::left << std::setw(5) << b.m_noOfstock
+            << " * " << std::right << std::setw(8) << std::fixed << std::setprecision(2) << b.m_price << " * ";
       return out;
    }
 
+
+  
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+

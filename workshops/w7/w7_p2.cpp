@@ -73,4 +73,6 @@ int main(int argc, char* argv[])
    for (auto& x : oosBread)
       std::cout << x << std::endl;
    printstars(std::cout, 64);
+
+
 }
