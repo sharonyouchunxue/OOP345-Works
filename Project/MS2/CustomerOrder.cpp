@@ -155,7 +155,6 @@ namespace sdds {
       }
    }
 
-
    //print record to console
    void CustomerOrder::display(std::ostream& os) const {
          os << m_name << " - " << m_product << std::endl;

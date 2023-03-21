@@ -36,6 +36,7 @@ namespace sdds{
 		Item** m_lstItem{ nullptr };
 		//Class Variable
 		static size_t m_widthField;
+
 	public:
 		CustomerOrder();
 		CustomerOrder(const std::string& str);

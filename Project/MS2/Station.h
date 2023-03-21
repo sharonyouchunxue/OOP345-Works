@@ -13,10 +13,12 @@ the coding by myself and only copied the code that my professor provided to
 complete my workshops and assignments.
 *****************************************************************************
 */
-#include <ostream>
-#include "Utilities.h"
+
 #ifndef SDDS_STATION_H
 #define SDDS_STATION_H
+
+#include <ostream>
+#include "Utilities.h"
 
 namespace sdds {
    class Station {
