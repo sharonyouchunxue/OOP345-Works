@@ -31,50 +31,29 @@ namespace sdds {
    }
 
    std::string Utilities::extractToken(const std::string& str, size_t& next_pos, bool& more){
-      if (str[next_pos] == getDelimiter())
-      {
-         more = false;
-         throw std::invalid_argument("No token!"); //throw an exception if a delimiter is found in the next position
+      //extracts a token from string str
+      std::string token = "";
+      if (next_pos < str.length()) {
+         size_t delimiter_pos = str.find(m_delimiter, next_pos);
+         token = str.substr(next_pos, delimiter_pos - next_pos);
+         removeSpace(token);
+         next_pos = delimiter_pos != std::string::npos ? delimiter_pos + 1 : str.length();
+         more = true;
+         if (token.length() > m_widthField) {
+            m_widthField = token.length();
+         }
       }
-      size_t foundPos = 0;
-      foundPos = str.find(getDelimiter(), next_pos);
-      std::string tempString{};
-      if (foundPos < str.length())                   //extracts all the tokens except the last one
-      {
-         tempString = str.substr(next_pos, foundPos - next_pos);
-         removeSpaces(tempString);
-         next_pos = foundPos + 1;
-      }
-      else                                         //extracts the last token
-      {
-         tempString = str.substr(next_pos);
-         removeSpaces(tempString);
+      else {
          more = false;
       }
-      if (m_widthField < tempString.length())
-      {
-         m_widthField = tempString.length();
-      }
-      return tempString;    
+      return token;
    }
 
-   void Utilities::removeSpaces(std::string& word)
-   {
-      bool spacesRemoved = false;
-      while (!spacesRemoved)
+   void Utilities::removeSpace(std::string& str){
+      if (!str.empty())
       {
-         if (word[0] == ' ')
-         {
-            word = word.substr(1, word.length());
-         }
-         if (word[word.length() - 1] == ' ')
-         {
-            word = word.substr(0, (word.length() - 1));
-         }
-         if (word[0] != ' ' && word[word.length() - 1] != ' ')
-         {
-            spacesRemoved = true;
-         }
+         str.erase(0, str.find_first_not_of(" "));
+         str.erase(str.find_last_not_of(" ") + 1);
       }
    }
 

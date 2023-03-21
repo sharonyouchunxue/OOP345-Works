@@ -1,11 +1,11 @@
 /*
 *****************************************************************************
-                        Milestone 1
+                        Milestone 3
 Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-13
+Date       : 2023-03-21
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -27,6 +27,7 @@ namespace sdds {
       size_t getFieldWidth() const;
       std::string extractToken(const std::string& str, size_t& next_pos, bool& more);
       void removeSpace(std::string& str);
+
       //Class Functions
       static void setDelimiter(char newDelimiter);
       static char getDelimiter();

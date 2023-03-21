@@ -1,11 +1,11 @@
 /*
 *****************************************************************************
-                        Milestone 2
+                        Milestone 3
 Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-15
+Date       : 2023-03-21
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -18,7 +18,6 @@ complete my workshops and assignments.
 #include <vector>
 #include "CustomerOrder.h"
 #include "Utilities.h"
-#include <unordered_set>
 
 namespace sdds {
 
@@ -134,27 +133,24 @@ namespace sdds {
    void CustomerOrder::fillItem(Station& station, std::ostream& os) {
       // Traverse all the elements in the current order
       for (size_t i = 0u; i < m_cntItem; ++i) {
-         // Check if the current order item is unfilled and matches the item handled by the station
-         if (!m_lstItem[i]->Item::m_isFilled && m_lstItem[i]->m_itemName == station.getItemName()) {
+         // Check if the current order item matches the item handled by the station
+         if (m_lstItem[i]->m_itemName == station.getItemName()) {
             // Check if the station's inventory contains at least one item
             if (station.getQuantity() > 0) {
                // Update the order item and station's inventory
+               m_lstItem[i]->m_isFilled = true;
+               m_lstItem[i]->m_serialNumber = station.getNextSerialNumber();
                station.updateQuantity();
-               m_lstItem[i]->Item::m_serialNumber = station.getNextSerialNumber();
-               m_lstItem[i]->Item::m_isFilled = true;
                // Print the filled message
-               os << "    Filled " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << "]" << std::endl;
+               os << "Filled " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << "]" << std::endl;
             }
             else {
                // Print the unfilled message
                os << "Unable to fill " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << "]" << std::endl;
             }
-            // Exit the loop after filling the first unfilled item
-            return;
          }
       }
    }
-
 
    //print record to console
    void CustomerOrder::display(std::ostream& os) const {
