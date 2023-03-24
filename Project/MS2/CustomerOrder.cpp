@@ -160,8 +160,8 @@ namespace sdds {
          os << m_name << " - " << m_product << std::endl;
          for (size_t i = 0u; i < m_cntItem; ++i) {
             os << "[" << std::right << std::setw(6) << std::setfill('0') << m_lstItem[i]->m_serialNumber << "]";
-            os << std::left << std::setw(CustomerOrder::m_widthField) << std::setfill(' ') << m_lstItem[i]->m_itemName;
-            os << " - " << (m_lstItem[i]->m_isFilled ? "FILLED" : " TO BE FILLED") << std::endl;
+            os << " "<< std::left << std::setw(CustomerOrder::m_widthField) << std::setfill(' ') << m_lstItem[i]->m_itemName;
+            os << "  " << " -" << (m_lstItem[i]->m_isFilled ? "FILLED" : " TO BE FILLED") << std::endl;
          }
       }
 }

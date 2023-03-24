@@ -48,7 +48,8 @@ namespace sdds {
 
    //returns the next serial number to be used on the assembly line and increments m_serialNumber
    size_t Station::getNextSerialNumber() {    
-      return ++m_nextSerialNumber;;
+      ++m_nextSerialNumber;
+      return m_nextSerialNumber - 1;
    }
 
    // returns the remaining quantity of items in the Station object

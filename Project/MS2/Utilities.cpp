@@ -32,22 +32,29 @@ namespace sdds {
    std::string Utilities::extractToken(const std::string& str, size_t& next_pos, bool& more){
       std::string token = "";
       size_t first_pos = next_pos;
+
       next_pos = str.find(m_delimiter, first_pos);
-      if (next_pos < str.length()) {
+      if (first_pos == next_pos) {
+         more = false;
+         throw std::string("No token.");
+      }
+      else if (next_pos == std::string::npos)
+      {
+         token = str.substr(first_pos);
+         removeSpace(token);
+         more = false;
+      }
+      else {
          token = str.substr(first_pos, next_pos - first_pos);
          removeSpace(token);
          more = true;
       }
-      else {
-         if (next_pos == std::string::npos) {
-            token = str.substr(first_pos);
-            removeSpace(token);
-            more = false;
-         }
-      }
-      m_widthField = m_widthField > token.length() ? m_widthField : token.length();
+
+      m_widthField = std::max(token.length(), m_widthField);
       next_pos++;
-      return token;    
+
+      return token;
+
    }
 
    //remove all leading spaces
