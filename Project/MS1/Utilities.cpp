@@ -32,7 +32,6 @@ namespace sdds {
 
    std::string Utilities::extractToken(const std::string& str, size_t& next_pos, bool& more){
       //extracts a token from string str
-<<<<<<< HEAD
       std::string token = "";
       if (next_pos < str.length()) {
          size_t delimiter_pos = str.find(m_delimiter, next_pos);
@@ -51,7 +50,6 @@ namespace sdds {
    }
 
    void Utilities::removeSpace(std::string& str){
-=======
        std::string token = "";
         if (next_pos < str.length()) {         
             size_t delimiter_pos = str.find(m_delimiter, next_pos);
@@ -69,7 +67,6 @@ namespace sdds {
    }
 
    void Utilities::removeSpaces(std::string& word) {
->>>>>>> 4324f08c92dfc5b4d57b2d4b8b127d1095d21cc6
       if (!str.empty())
       {
          str.erase(0, str.find_first_not_of(" "));
