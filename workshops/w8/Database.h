@@ -5,7 +5,7 @@ Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-23
+Date       : 2023-03-24
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -21,7 +21,6 @@ complete my workshops and assignments.
 #include <memory>
 #include <algorithm>
 #include <fstream>
-#include <vector>
 namespace sdds {
    
    enum class Err_Status
@@ -33,7 +32,7 @@ namespace sdds {
 
    template<typename T>
    class Database {    
-     // static std::shared_ptr<Database> m_instance; //class member
+      static std::shared_ptr<Database> m_instance; //class member
       size_t m_noOfEntries{ 0u };
       std::string m_keys[20]{};
       T m_values[20]{};
@@ -67,7 +66,6 @@ namespace sdds {
       void encryptDecrypt(T& value){}
 
    public: 
-      static std::shared_ptr<Database> m_instance;
 
       static std::shared_ptr<Database>getInstance(const std::string& filename) {
          if (m_instance == nullptr) {

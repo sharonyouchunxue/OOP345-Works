@@ -1,0 +1,41 @@
+Workshop Eight - Smart Pointers
+
+In workshop eight, the primary topic I worked through was smart pointers. Smart pointers are objects which store pointers to 
+dynamically allocated objects. They behave much like built-in C++ pointers except that they automatically delete the object 
+pointed to at the appropriate time. There are three types of smart pointer in C++: unique_ptr, shared_ptr, and weak_ptr. 
+We only used shared_ptr in this workshop.
+
+1. why could we not use a unique_ptr in your Database class?
+
+In workshop eight, I created a class member called “ static std::shared_ptr&lt;Database&gt; m_instance;” to allow multiple parts 
+of the program to access the same “database” class instance, which also presented as a singleton instance of a Database class 
+because we want to share the ownership of resources. With unique_ptr, there will be only one part of the program that can access 
+the “database” class instance at any given time which does not follow the singleton rule any more.
+
+2. what changes you had to make in part 1 to transform the class into a templated one?
+
+There are several changes that I made in order to transform the class into a template class. I first created a class template with 
+type name T and modified the std::string m_values[20] to use T instead of std::string. Then I brought all of my code into the 
+header file, and modified all the std::string type reference for the value to use T.
+
+3. a class that allows only one instance to be created is called a singleton. Can you think at another way to create a singleton 
+   without using static members? How would that object be managed?
+
+Yes. There is different way other than using static members. For example, we could create a private constructor and static member 
+to function that return a reference to a single instance of that class. By using this way, the object is managed automatically at 
+run time. The static member function getInstance() will create single instance of the class and when the program terminates the 
+instance is destroyed automatically. By doing so, we then do not need to worry about managing the object&#39;s lifetime explicitly.
+
+4. the class Database has a resource attribute (the database instance), yet no copy/move operations were implemented. Is that a 
+   bug (justify your answer)?
+
+The Database class I created is a singleton use class. Only one instance of the class will be created and used throughout the 
+lifetime of the program. However, if this database class will be used to create multiple instances of the class or passing 
+instances of the class to other functions, this will cause problems since it will try to copy and move an instance of database. 
+A better idea is to include copy and move operations in order to avoid these problems.
+
+5. we said that the class Database can be instantied only once, yet in the output we see that the custom constructor is called 
+   twice (same for the destructor). Explain.
+
+Based on the implementation file that was provided, the reason we see the custom constructor called twice is because the
+ constructor and destructor were called twice for each type one time to create the object and one time to destroy it.
