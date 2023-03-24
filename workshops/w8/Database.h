@@ -66,7 +66,6 @@ namespace sdds {
       void encryptDecrypt(T& value){}
 
    public: 
-
       static std::shared_ptr<Database>getInstance(const std::string& filename) {
          if (m_instance == nullptr) {
             m_instance = std::shared_ptr<Database>(new Database(filename));
