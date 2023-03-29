@@ -1,12 +1,12 @@
 #include "Station.h"
 /*
 *****************************************************************************
-                        Milestone 3
+                        Milestone 1
 Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-21
+Date       : 2023-03-28
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -47,7 +47,7 @@ namespace sdds {
    }
 
    //returns the next serial number to be used on the assembly line and increments m_serialNumber
-   size_t Station::getNextSerialNumber() {
+   size_t Station::getNextSerialNumber() {    
       ++m_nextSerialNumber;
       return m_nextSerialNumber - 1;
    }

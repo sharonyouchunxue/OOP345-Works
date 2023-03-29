@@ -1,11 +1,11 @@
 /*
 *****************************************************************************
-                        Milestone 3
+                        Milestone 2
 Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-21
+Date       : 2023-03-28
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -32,22 +32,29 @@ namespace sdds {
    std::string Utilities::extractToken(const std::string& str, size_t& next_pos, bool& more){
       std::string token = "";
       size_t first_pos = next_pos;
+
       next_pos = str.find(m_delimiter, first_pos);
-      if (next_pos < str.length()) {
+      if (first_pos == next_pos) {
+         more = false;
+         throw std::string("No token.");
+      }
+      else if (next_pos == std::string::npos)
+      {
+         token = str.substr(first_pos);
+         removeSpace(token);
+         more = false;
+      }
+      else {
          token = str.substr(first_pos, next_pos - first_pos);
          removeSpace(token);
          more = true;
       }
-      else {
-         if (next_pos == std::string::npos) {
-            token = str.substr(first_pos);
-            removeSpace(token);
-            more = false;
-         }
-      }
-      m_widthField = m_widthField > token.length() ? m_widthField : token.length();
+
+      m_widthField = std::max(token.length(), m_widthField);
       next_pos++;
-      return token;    
+
+      return token;
+
    }
 
    //remove all leading spaces

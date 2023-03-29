@@ -1,11 +1,11 @@
 /*
 *****************************************************************************
-                        Milestone 3
+                        Milestone 2
 Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-21
+Date       : 2023-03-15
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -15,7 +15,6 @@ complete my workshops and assignments.
 */
 #ifndef SDDS_CUSTOMERORDER_H
 #define SDDS_CUSTOMERORDER_H
-
 #include "Station.h"
 namespace sdds{
 
@@ -37,6 +36,7 @@ namespace sdds{
 		Item** m_lstItem{ nullptr };
 		//Class Variable
 		static size_t m_widthField;
+
 	public:
 		CustomerOrder();
 		CustomerOrder(const std::string& str);
