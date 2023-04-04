@@ -1,0 +1,35 @@
+Reflection – Final Project
+
+The purpose of this project is to put all my C++ object oriented skills to practice by developing a simulation of an assembly line 
+with any number of stations. The project is divided into 3 milestones.
+
+For milestone one, I created a utilities module to support the parsing of input files, which contain information used to setup and 
+configure the assembly line. I also created the station module to manage information about a station on the assembly line, which 
+holds a specific item and fills customer orders. In milestone one, the part I found the most challenging was the extractToken 
+function in utilities. I was having trouble understanding how this function works initially. After I understood this function 
+better, I was stuck on the output data with extra spaces, which I removed the space in that function. After a walk through with 
+breaking point, I fixed the issue with the removeSpace function.
+
+For milestone two, this part of the project required me to add another module called CustomerOrder to the milestone one code so 
+that a CustomerOrder object can manage a single order on the assembly line. In this part of the project, I was stuck on two things.
+One was the CustomerOrder constructor to use the extractToken function from the utilities which was not working as expected. I was 
+able to solve this problem by using my debugging skill to find out the problem was from my extractToken function, which needed 
+some logical changes, even though it was fully functional for milestone one. The other issue was the fillItem function that I 
+created, which filled all the orders that needed to be filled instead of filling for each single item. I fixed this problem by 
+walking through the code for this part. I then added a condition checking code as showing to check if the current order item is 
+unfilled and matches the item handled by the station. Below is the code I added:
+
+        if (!m_lstItem[i]->Item::m_isFilled&&m_lstItem[i]->m_itemName == station.getItemName())
+
+For milestone three, this part of the project was to implement and test the Workstation and LineManager modules. Milestone three 
+was the most challenging part in terms of requiring a deep understanding of the logic between different modules. I also had to use 
+queues, which I did not have much practice on. Queues is the “first in, first out” (FIFO) pattern that describes lines as we know 
+them in everyday life. Based on this feature, I was able to code for different functions in the workstation module with the built 
+in function such as front(), pop() etc. In the LineManager module, I was stuck on the two-argument constructor that receives the 
+name of the file that identifies the active stations on the assembly line, and the collection of workstations available for 
+configuring the assembly line. Thus, it took me a significant amount of time to understand this logic and be able to debug and fix 
+my function to make it work.
+
+In conclusion, this final project was an effective way for me to review and practice the concepts that I have learned so far, 
+especially in the other half semester. These concepts include vector, lambda expression, algorithm, lists, queues, etc. Even 
+though I found this project challenging, I finished with more practical knowledge of C++.

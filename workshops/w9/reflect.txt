@@ -1,0 +1,48 @@
+Reflection - Workshop Nine – Multi-Threading
+
+In workshop nine, the primary topic I walked through was multi-threading. A multi-threaded program contains two or more parts that 
+can run at the same time. Each part is called a thread, and each thread defines a separate path of execution.
+
+1. was there any benefit from using binary files in this workshop?
+
+   Yes, there are many benefits by using binary files instead of text files in this workshop, such as faster data access, efficient
+   storage of complex data structures, and compact storage of large amounts of data. Binary files for storing data in C++ can be 
+   very fast as the data format is easier for a computer to understand in terms of reading and transferring complex data 
+   structures, as well as large amounts of data.
+
+2. why would be important to bind a function to its arguments, and how was it useful in this workshop.
+   Binding a function to its argument is important for various reasons. First, it allows me to create a new object. Second, it can 
+   be called with a smaller number of arguments. Finally, it can make the code easier to read and understand, especially when we 
+   need to pass a function as parameter to another function. In the workshop, I created two bind function as shown below:
+
+   auto computeAvg = std::bind(computeAvgFactor, _1, p_indices[1], total_items, _2);
+   auto computeVar = std::bind(computeVarFactor, _1, p_indices[1], total_items, std::ref(avg), _2);
+
+   The first line of code : computeAvg that is bound to the function computeAvgFactor with four arguments: _1, p_indices[1], 
+   total_items, and _2. The _1 and _2 placeholders represent arguments that will be passed to the computeAvg function object when 
+   it is called. The other two arguments, p_indices[1] and total_items, are fixed values that are bound to the function object and 
+   will be used each time it is called. The second line of code almost are the same with the first one except std::ref(avg) 
+   argument, which is a reference to the avg variable, and it will be used by the computeVarFactor function to compute the variance.
+
+3. the advantages of using multiple threads, and how did you accomplish multi-threading in this workshop.
+
+   There are many advantages of using multiple threads, such as responsiveness, resource sharing, economy, scalability, better 
+   communication, utilization of multiprocessor architecture and minimized system resource usage. To accomplish multi-threading in 
+   this workshop, the C++11 thread library was used to create a pool of threads that were used to compute the average and variance 
+   of the input data. For example, in my code the thread pools were created by using std::vector<std::thread> process_Avg and 
+   std::vector<std::thread&> process_Var to hold the threads to compute average and variance of the input data. For each vector 
+   of threads, a loop is used to create multiple threads and assign work to each thread. Once all of the threads have been created 
+   and assigned work, the code waits for all of the threads to complete using the join() method. My code for the workshop is shown 
+   below:
+
+          // compute avg
+          std::vector<std::thread> process_Avg;
+          for (int i = 0; i &lt; num_threads; i++) {
+              process_Avg.push_back(std::thread(computeAvg, &amp;data[p_indices[i]], std::ref(averages[i])));
+
+          }
+
+          std::for_each(process_Avg.begin(), process_Avg.end(), [](std::thread&amp; t) { t.join();});
+          for(size_t i = 0; I &lt; num_threads; i++){
+                  avg+= averages[i];
+                   }

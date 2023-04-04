@@ -2,6 +2,8 @@
 // process_data.cpp
 // 2021/1/5 - Jeevan Pant
 
+#include <algorithm>
+#include <numeric>
 #include "process_data.h"
 using namespace std::placeholders;
 
@@ -94,9 +96,10 @@ namespace sdds_ws9 {
 		for (int i = 0; i < num_threads; i++) {
 			process_Avg.push_back(std::thread(computeAvg, &data[p_indices[i]], std::ref(averages[i])));
 		}
-		for (auto& ele : process_Avg) {
-			ele.join();
-		}
+		// join threads in process_Avg vector
+		std::for_each(process_Avg.begin(), process_Avg.end(), [](std::thread& t) {
+			t.join();
+			});
 		for (int i = 0; i < num_threads; i++) {
 			avg += averages[i];
 		}
@@ -106,9 +109,11 @@ namespace sdds_ws9 {
 		for (int i = 0; i < num_threads; i++) {
 			process_Var.push_back(std::thread(computeVar, &data[p_indices[i]], std::ref(variances[i])));
 		}
-		for (auto& ele : process_Var) {
-			ele.join();
-		}
+		// join threads in process_Avg vector
+		std::for_each(process_Var.begin(), process_Var.end(), [](std::thread& t) {
+			t.join();
+			});
+
 		for (int i = 0; i < num_threads; i++) {
 			var += variances[i];
 		}

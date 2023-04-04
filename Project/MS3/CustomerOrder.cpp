@@ -1,11 +1,11 @@
 /*
 *****************************************************************************
-                        Milestone 2
+                        Milestone 3
 Full Name  : Chunxue You
 Student ID#: 127632214
 Email      : cyou8@myseneca.ca
 Section    : OOP244 NRA
-Date       : 2023-03-15
+Date       : 2023-04-03
 Authenticity Declaration:
 I declare this submission is the result of my own work and has not been
 shared with any other student or 3rd party content provider. I have done all
@@ -132,36 +132,38 @@ namespace sdds {
 
    // fills one item in the current order that the Station specified in the first parameter handles.
    void CustomerOrder::fillItem(Station& station, std::ostream& os) {
+      bool stop = false;
       // Traverse all the elements in the current order
-      for (size_t i = 0u; i < m_cntItem; ++i) {
+      for (size_t i = 0; i < m_cntItem && !stop; ++i) {
          // Check if the current order item is unfilled and matches the item handled by the station
-         if (!m_lstItem[i]->Item::m_isFilled && m_lstItem[i]->m_itemName == station.getItemName()) {
+         if (!m_lstItem[i]->m_isFilled && m_lstItem[i]->m_itemName == station.getItemName()) {
             // Check if the station's inventory contains at least one item
             if (station.getQuantity() > 0) {
                // Update the order item and station's inventory
                station.updateQuantity();
-               m_lstItem[i]->Item::m_serialNumber = station.getNextSerialNumber();
-               m_lstItem[i]->Item::m_isFilled = true;
+               m_lstItem[i]->m_isFilled = true;
+               m_lstItem[i]->m_serialNumber = station.getNextSerialNumber();
                // Print the filled message
                os << "    Filled " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << "]" << std::endl;
+               stop = true;
             }
             else {
                // Print the unfilled message
-               os << "Unable to fill " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << "]" << std::endl;
+               os << "    Unable to fill " << m_name << ", " << m_product << " [" << m_lstItem[i]->m_itemName << "]" << std::endl;
             }
-            // Exit the loop after filling the first unfilled item
-            return;
          }
       }
    }
 
+
+  
    //print record to console
    void CustomerOrder::display(std::ostream& os) const {
          os << m_name << " - " << m_product << std::endl;
          for (size_t i = 0u; i < m_cntItem; ++i) {
             os << "[" << std::right << std::setw(6) << std::setfill('0') << m_lstItem[i]->m_serialNumber << "]";
             os << " "<< std::left << std::setw(CustomerOrder::m_widthField) << std::setfill(' ') << m_lstItem[i]->m_itemName;
-            os << "  " << " -" << (m_lstItem[i]->m_isFilled ? "FILLED" : " TO BE FILLED") << std::endl;
+            os << "  " << " -" << (m_lstItem[i]->m_isFilled ? " FILLED" : " TO BE FILLED") << std::endl;
          }
       }
 }
