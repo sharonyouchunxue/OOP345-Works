@@ -27,6 +27,7 @@ namespace sdds {
       m_id = ++Station::id_generator;
       bool more = true;
       size_t pos = 0u;
+
       // extract name
       m_name = util.extractToken(src, pos, more);
       //extract starting serial number 

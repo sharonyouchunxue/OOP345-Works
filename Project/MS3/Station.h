@@ -21,6 +21,7 @@ complete my workshops and assignments.
 #include "Utilities.h"
 
 namespace sdds {
+
    class Station {
       //Instance Variables
       int m_id{ 0 };

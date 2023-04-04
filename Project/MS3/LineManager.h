@@ -36,4 +36,3 @@ namespace sdds {
 
 }
 #endif // !SDDS_LINEMANAGER_H
-

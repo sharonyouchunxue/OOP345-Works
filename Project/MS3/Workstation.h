@@ -53,5 +53,6 @@ namespace sdds {
       void display(std::ostream& os) const;
       Workstation& operator+=(CustomerOrder&& newOrder);
    };
+
 }
 #endif // !SDDS_WORKSTATION_H

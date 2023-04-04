@@ -17,6 +17,7 @@ complete my workshops and assignments.
 #define SDDS_UTILITIES_H
 
 namespace sdds {
+
    class Utilities {
       // length of the token extracted;
       size_t m_widthField{ 1 };

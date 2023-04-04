@@ -74,6 +74,5 @@ namespace sdds {
    char Utilities::getDelimiter(){
       return m_delimiter;
    }
-
 }
 
