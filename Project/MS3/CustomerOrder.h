@@ -55,5 +55,3 @@ namespace sdds{
 #endif // ! SDDS_CUSTOMERORDER_H
 
 
-
-

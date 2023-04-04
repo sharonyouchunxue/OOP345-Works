@@ -51,8 +51,6 @@ namespace sdds {
       }
    }
 
-
-
    //copy constructor should throw an exception if called and the copy operator= should be deleted.
    CustomerOrder::CustomerOrder(const CustomerOrder& src) {
       throw "invalid call copy constructor";
@@ -154,9 +152,7 @@ namespace sdds {
          }
       }
    }
-
-
-  
+ 
    //print record to console
    void CustomerOrder::display(std::ostream& os) const {
          os << m_name << " - " << m_product << std::endl;

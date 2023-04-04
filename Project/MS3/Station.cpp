@@ -39,7 +39,6 @@ namespace sdds {
       m_description = util.extractToken(src, pos, more);
    }
 
-
    //returns the name of the current Station object
    const std::string& Station::getItemName() const {
       return m_name;
